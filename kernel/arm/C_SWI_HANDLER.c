@@ -47,22 +47,24 @@ unsigned long C_SWI_HANDLER(unsigned swi_num, void* regs) {
 		    /* call swi_create */
 		    task = (task_t) (*regs);
 		    count = (size_t) regs[1];
-		    task_create(task, count);
+		    result = task_create(task, count);
 		    break;
 		case MUTEX_CREATE:
 		    /* call mutex create */
-		    create_mutex_syscall(regs);
+		    result = mutex_create();
 		    break;
 		case MUTEX_LOCK:
 		    /*call mutex_lock */
-		    mutex_lock_syscall(regs);
+		    fd = (int) (*regs)
+		    result = mutex_lock(fd);
 		    break;
 		case MUTEX_UNLOCK:
-		    mutex_unlock_syscall(regs);
+		    fd = (int) (*regs);
+		    result = mutex_unlock(fd);
 		    break;
 		case EVENT_WAIT:
 		    num = (unsigned int) (*regs);
-		    event_wait(num);
+		    result = event_wait(num);
 		    break;
                 default:                           
                     /* return with status bad code */
