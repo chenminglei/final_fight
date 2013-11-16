@@ -9,6 +9,21 @@
 #include <asm.h>
 
 	.file "mutex_lock.S"
+        .extern errno
 
 FUNC(mutex_lock)
-	@ Add code here.  Put your name at the top.
+    swi MUTEX_LOCK     @call mutex lock interrupt
+    CMP r0, #0         @compare return value with 0
+    bge .Locate        @if r0 is bigger or equal to 0, return normally
+    neg r0, r0         @otherwise negate return value
+
+    ldr r2, =errno     @get the address of error number
+    str r0, [r2]       @store r0 to error number
+    mov r0, #-1        @set return value to -1         
+
+.Locate:
+    mov pc, lr         @restore pc
+
+
+
+
