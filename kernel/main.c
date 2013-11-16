@@ -15,6 +15,9 @@
 #include <assert.h>
 
 uint32_t global_data;
+unsigned int spaddr;     // original sp address
+volatile unsigned int cur_time = 0;
+volatile unsigned int cur_bias = 0;
 
 int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused)), uint32_t table)
 {

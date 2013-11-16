@@ -34,7 +34,7 @@ ssize_t read_syscall(int fd __attribute__((unused)), void *buf __attribute__((un
     ssize_t i = 0;
 
     // if file descriptor does not match stdin return error
-    if (fd != STDIN) {
+    if (fd != STDIN_FILENO) {
         return -EBADF;
     }
     // if the memory range specified exceeds the size of SDRAM, return error
@@ -80,11 +80,11 @@ ssize_t write_syscall(int fd  __attribute__((unused)), const void *buf  __attrib
     char c;
     ssize_t num = 0;
 
-    if(fd == STDOUT) {
+    if(fd == STDOUT_FILENO) {
         while(num < count) {
             //check whether the addrss is legal
             if(((unsigned)buf + num) < SDRAM_LOW
-                &&((unsigned)buf + num) > FLASH_LOW) {
+                &&((unsigned)buf + num) > FLASH_HIGH) {
                 return -EFAULT;
             }
             else if((unsigned)buf + num > SDRAM_HIGH) {
