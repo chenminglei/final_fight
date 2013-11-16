@@ -1,11 +1,11 @@
-@ IRQ_Handler.S: Customized IRQ handler
+@ irq_handler.S: Customized IRQ handler
 @
 @ Author: Di Li <dil1@andrew.cmu.edu>
 @         Zhe Shen <zshen@andrew.cmu.edu>
 @         Minglei Chen <mingleic@andrew.cmu.edu>
 @ Date:   Nov 1st 2013
 
-        .file   "IRQ_Handler.S"
+        .file   "irq_handler.S"
         .text
         .global IRQ_Handler
         .extern C_IRQ_HANDLER
