@@ -8,6 +8,7 @@
 
 #include <bits/swi.h>
 #include <asm.h>
+#include <bits/swi.h>
 
 	.file "mutex_create.S"
         .extern errno
