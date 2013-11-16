@@ -14,7 +14,7 @@
 #ifndef ASSEMBLER
 
 void init_swi(void);
-void destroy_swi(void);
+//void destroy_swi(void);
 void swi_dispatch(unsigned int swi_num, struct ex_context* c);
 
 #endif /* ASSEMBLER */

@@ -57,11 +57,11 @@
 
 void interrupt_panic(unsigned int int_num) __attribute__((noreturn));
 void init_interrupt(void);
-void destroy_interrupt(void);
+//void destroy_interrupt(void);
 void irq_handler(void);
 void request_reschedule(void);
-void install_int_handler(unsigned int int_num, void (*int_handler)(unsigned int))
-	__attribute__((nonnull));
+//void install_int_handler(unsigned int int_num, void (*int_handler)(unsigned int))
+//	__attribute__((nonnull));
 
 #endif /* ASSEMBLER */
 
