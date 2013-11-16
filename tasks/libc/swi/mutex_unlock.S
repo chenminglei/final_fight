@@ -6,7 +6,7 @@
  * @date 2008-10-31
  */
 
-#include <bits/swi.h>
+
 #include <asm.h>
 #include <bits/swi.h>
 

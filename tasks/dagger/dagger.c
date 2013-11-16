@@ -53,8 +53,8 @@ int main(int argc, char** argv)
 	tasks[1].T = PERIOD_DEV1;
 
 	//task_create(tasks, 2);
-	argc=argc+1; /* remove compiler warning */
-	argv[0]=argv[0]+1; /* remove compiler warning */
+	argc=argc; /* remove compiler warning */
+	argv[0]=argv[0]; /* remove compiler warning */
 
 	puts("Why did your code get here!\n");
 	return 0;
