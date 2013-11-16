@@ -12,13 +12,17 @@
 #include <arm/timer.h>
 #include <syscall.h>
 
+extern volatile unsigned int cur_time;
+extern volatile unsigned int cur_bias;
 
 unsigned long time_syscall(void)
 {
- return 1; /* remove this line after adding your code here */	
+    /*read the current value of OSCR */
+    volatile unsigned long oscr = reg_read(OSTMR_OSCR_ADDR);
+    /*get the current time */
+    unsigned long ret = cur_time*TIME_RESOLUTION + (oscr + cur_bias)/OSMR_ONE_SECOND;
+    return ret;
 }
-
-
 
 /** @brief Waits in a tight loop for atleast the given number of milliseconds.
  *
@@ -28,5 +32,12 @@ unsigned long time_syscall(void)
  */
 void sleep_syscall(unsigned long millis  __attribute__((unused)))
 {
-	
+    /* Get current time */
+    unsigned long currenttime = cur_time;
+    /* Get the cumulated bias for oscr */
+    unsigned long bias = cur_bias / OSMR_ONE_SECOND;
+
+    /* Break until sleep enough */
+    while (currenttime * TIME_RESOLUTION + millis + bias > cur_time * TIME_RESOLUTION + cur_bias / OSMR_ONE_SECOND) {
+    };	
 }
