@@ -10,6 +10,7 @@
 #include <config.h>
 #include <bits/errno.h>
 #include <arm/timer.h>
+#include <arm/reg.h>
 #include <syscall.h>
 
 extern volatile unsigned int cur_time;
