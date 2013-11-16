@@ -12,6 +12,10 @@
 #include <arm/timer.h>
 #include <arm/reg.h>
 #include <syscall.h>
+#include <constant.h>
+
+#include <exports.h>
+
 
 extern volatile unsigned int cur_time;
 extern volatile unsigned int cur_bias;
