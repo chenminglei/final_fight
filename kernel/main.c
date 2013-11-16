@@ -15,6 +15,8 @@
 #include <assert.h>
 
 uint32_t global_data;
+volatile int cur_num_mutex = 0;
+
 
 int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused)), uint32_t table)
 {
