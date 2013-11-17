@@ -45,9 +45,7 @@ typedef struct ex_context ex_context_t;
 
 
 void init_exception(void);
-//void destroy_exception(void);
-void install_exception_handler(unsigned int exn_num, void (*handler)(void))
-	__attribute__((nonnull));
+void installHandler(unsigned int * vec_address, unsigned int new_address, unsigned int type);
 
 INLINE void enable_interrupts(void)
 {
