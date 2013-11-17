@@ -42,7 +42,9 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-	
+    tcb_t *next_tcb = runqueue_remove(highest_prio);
+    cur_tcb = next_tcb;
+    ctx_switch_full(next_tcb->context, cur_tcb->context);
 }
 
 /**
@@ -53,7 +55,9 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
-
+    tcb_t * next_tcb = runqueue_remove(highest_prio());
+    cur_tcb = next_tcb;
+    ctx_switch_half(next_tcb->context);   
 }
 
 
@@ -65,7 +69,10 @@ void dispatch_nosave(void)
  */
 void dispatch_sleep(void)
 {
-	
+    tcb_t * next_tcb = runqueue_remove(highest_prio);
+    cur_tcb = next_tcb;
+    ctx_switch_full(next_tcb->context, cur_tcb->context);	
+   
 }
 
 /**
@@ -73,7 +80,7 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
-	return 1; //fix this; dummy return to prevent compiler warning
+    return cur_tcb->cur_prio;
 }
 
 /**
@@ -81,5 +88,5 @@ uint8_t get_cur_prio(void)
  */
 tcb_t* get_cur_tcb(void)
 {
-	return (tcb_t *) 0; //fix this; dummy return to prevent compiler warning
+    return cur_tcb;
 }
