@@ -41,9 +41,9 @@ void mutex_init()
     mutex_t mutex_tmp;
     for (int i = 0; i < OS_NUM_MUTEX; i++) {
         mutex_tmp = gtMutex[i];
-        mutex_tmp->bAvailable = FALSE;
-        mutex_tmp->pHolding_Tcb = NULL;
-        mutex_tmp->pSleep_queue = NULL;
+        mutex_tmp.bAvailable = FALSE;
+        mutex_tmp.pHolding_Tcb = NULL;
+        mutex_tmp.pSleep_queue = NULL;
     }	
 }
 
@@ -61,8 +61,8 @@ int mutex_create(void)
     else {
         for (; i < OS_NUM_MUTEX; i++) {
             mutex_tmp = gtMutex[i];
-            if (! mutex_tmp->bAvailable) {
-                mutex_tmp->bAvailable = TRUE;
+            if (! mutex_tmp.bAvailable) {
+                mutex_tmp.bAvailable = TRUE;
                 break; 
             }
         }
@@ -85,19 +85,19 @@ int mutex_lock(int mutex  __attribute__((unused)))
     }
 
     mutex_tmp = gtMutex[mutex];
-    if (mutex_tmp->bAvailable == FALSE) {
+    if (mutex_tmp.bAvailable == FALSE) {
         enable_interrupts();
         return -EINVAL;     
     }
 
     cur_tcb = get_cur_tcb();   
-    if (cur_tcb == mutex_tmp->pHolding_Tcb) {
+    if (cur_tcb == mutex_tmp.pHolding_Tcb) {
         enable_interrupts();
         return -EDEADLOCK;
     }
-    else if (mutex_tmp->bLock == FALSE) {
-        mutex_tmp->bLock = TRUE;
-        mutex_tmp->pHolding_Tcb = cur_tcb;
+    else if (mutex_tmp.bLock == FALSE) {
+        mutex_tmp.bLock = TRUE;
+        mutex_tmp.pHolding_Tcb = cur_tcb;
         enable_interrupts();
         return 0;
     }    
@@ -122,27 +122,27 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     }
 
     mutex_tmp = gtMutex[mutex];
-    if (mutex_tmp->bAvailable == FALSE) {
+    if (mutex_tmp.bAvailable == FALSE) {
         enable_interrupts();
         return -EINVAL;
     }
 
     cur_tcb = get_cur_tcb();
-    if (cur_tcb != mutex_tmp->pHolding_Tcb) {
+    if (cur_tcb != mutex_tmp.pHolding_Tcb) {
         enable_interrupts();
         return -EPERM;
     }
     else {
         if (cur_tcb->sleep_queue == NULL) {
-            mutex_tmp->pHolding_Tcb = NULL;
-            mutex_tmp->bLock = FALSE;
-            mutex_tmp->pSleep_queue = NULL;
+            mutex_tmp.pHolding_Tcb = NULL;
+            mutex_tmp.bLock = FALSE;
+            mutex_tmp.pSleep_queue = NULL;
         }
         else {
-            mutex_tmp->pHolding_Tcb = cur_tcb->sleep_queue;
+            mutex_tmp.pHolding_Tcb = cur_tcb->sleep_queue;
             cur_tcb->sleep_queue = NULL;
-            mutex_tmp->bLock = TRUE;
-            mutex_tmp->pSleep_queue = mutex_tmp->pHolding_Tcb->sleep_queue;
+            mutex_tmp.bLock = TRUE;
+            mutex_tmp.pSleep_queue = mutex_tmp.pHolding_Tcb->sleep_queue;
         }
         dispatch_save();
         enable_interrupts();
@@ -153,10 +153,10 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 void add_sleep_queue(mutex_t mutex_tmp, tcb_t * tcb_tmp) 
 {
     tcb_t * tcb_sleep;
-    if (mutex_tmp->pSleep_queue == NULL)
-        mutex_tmp->pSleep_queue = tcb_tmp;
+    if (mutex_tmp.pSleep_queue == NULL)
+        mutex_tmp.pSleep_queue = tcb_tmp;
     else {
-        tcb_sleep = mutex_tmp->pSleep_queue;
+        tcb_sleep = mutex_tmp.pSleep_queue;
         while (tcb_sleep->sleep_queue != NULL) {
             tcb_sleep = tcb_sleep->sleep_queue;
         }
