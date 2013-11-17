@@ -68,7 +68,7 @@ unsigned long C_SWI_HANDLER(unsigned swi_num, void* regs) {
 		    break;
                 default:                           
                     /* return with status bad code */
-                    swi_exit(BADCODE);                 
+                    result = BADCODE;                 
         }                                    
 
         return result;                       

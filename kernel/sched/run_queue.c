@@ -58,7 +58,11 @@ static uint8_t prio_unmap_table[]  __attribute__((unused)) =
  */
 void runqueue_init(void)
 {
-	
+    int i = 0;
+    for(i = 0;i < OS_MAX_TASKS/8;i ++) {
+	run_bits[i] = 0;	
+    }    
+    group_run_bits = 0;
 }
 
 /**
@@ -71,7 +75,11 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
 {
-	
+	tcb -> cur_prio = prio;	
+	uint8_t y = (prio >> 3);
+	uint8_t x = prio & 0x07;
+	group_run_bits = group_run_bits | (1 << y);
+	run_bits[y] = run_bits[y] | (1 << x); 	
 }
 
 
@@ -84,7 +92,11 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
-	return (tcb_t *)1; // fix this; dummy return to prevent warning messages	
+	uint8_t y = prio >> 3;
+	uint8_t x = prio & 0x07;
+	group_run_bits = group_run_bits ^ (1 << y);
+	run_bits[y] = run_bits[y] ^ (1 << x);
+	return &system_tcb[prio];
 }
 
 /**
@@ -93,5 +105,9 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
  */
 uint8_t highest_prio(void)
 {
-	return 1; // fix this; dummy return to prevent warning messages	
+ 	uint8_t x = 0;
+	uint8_t y = 0;
+	y = prio_unmap_table[group_bits];
+	x = prio_unmap_table[run_bits[y]];
+	return ((y << 3) + x);
 }
