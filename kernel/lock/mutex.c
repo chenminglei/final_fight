@@ -93,7 +93,6 @@ int mutex_lock(int mutex  __attribute__((unused)))
     else {
         add_sleep_queue(tmp_mutex, cur_tcb);        
         dispatch_sleep();
-        enable_interrupts();
         return 0;
     }
 }
