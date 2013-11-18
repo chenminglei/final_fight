@@ -22,28 +22,15 @@ tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
-	uint8_t i = 0;
-	uint8_t k = 0;
-	task_t tmp = null; 
-	for(i = 0;i < OS_MAX_TASKS;i ++) {
-	    for(k = OS_MAX_TASKS - 1;k >= i + 1;k --) {
-		if(main_task[k].T < main_task[k - 1].T) {
-	      	    tmp = main_task[k];
-		    main_task[k] = main_task[k - 1];
-		    main_task[k - 1] = tmp;     
-		}
-	    }
-	}
-	for(i = 0;i < OS_MAX_TASKS;i ++) {
-	    system_tcb[i].native_prio = i;
-	    system_tcb[i].cur_prio = i;
-	    system_tcb[i].lr = &launch_task;
-	    system_tcb[i].context.r4 = (uint8_t)main_task[i].lambda; 
-	    system_tcb[i].context.r5 = (uint8_t)main_task[i].data;
-	    system_tcb[i].context.r6 = (uint8_t)main_task[i].stack_pos;
-	    system.tcb[i].sleep_queue = null;
-	    runqueue_add(&system_tcb[i], i);
-	}
+    system_tcb[IDLE_PRIO].native_prio = IDLE_PRIO;
+    system_tcb[IDLE_PRIO].cur_prio = IDLE_PRIO;
+    system_tcb[IDLE_PRIO].lr = &launch_task;
+    system_tcb[IDLE_PRIO].sp = system_tcb[i].kstack_high;
+    system_tcb[IDLE_PRIO].context.r4 = (task_fun_t)idle;
+    system_tcb[IDLE_PRIO].context.r5 = (uint8_t)main_task[i].data;
+    system_tcb[IDLE_PRIO].context.r6 = (uint8_t)main_task[i].stack_pos;
+    system.tcb[IDLE_PRIO].sleep_queue = NULL;
+    runqueue_add(&system_tcb[IDLE_PRIO], IDLE_PRIO);
 }
 
 /**
@@ -52,8 +39,8 @@ void sched_init(task_t* main_task  __attribute__((unused)))
  
 static void __attribute__((unused)) idle(void)
 {
-	 enable_interrupts();
-	 while(1);
+    enable_interrupts();
+    while(1);
 }
 
 /**
@@ -71,6 +58,27 @@ static void __attribute__((unused)) idle(void)
  */
 void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-	
+    uint8_t i = 0;
+    uint8_t k = 0;
+    task_t tmp = NULL;
+    for (i = 0;i < num_tasks;i ++) {
+        for (k = num_tasks - 1;k >= i + 1;k --) {
+            if (main_task[k].T < main_task[k - 1].T) {
+                tmp = main_task[k];
+                main_task[k] = main_task[k - 1];
+                main_task[k - 1] = tmp;
+            }
+        }
+    }
+    for (i = 0;i < num_tasks;i ++) {
+        system_tcb[i].native_prio = i;
+        system_tcb[i].cur_prio = i;
+        system_tcb[i].lr = &launch_task;
+        system_tcb[i].sp = system_tcb[i].kstack_high;
+        system_tcb[i].context.r4 = (uint8_t)main_task[i].lambda;
+        system_tcb[i].context.r5 = (uint8_t)main_task[i].data;
+        system_tcb[i].context.r6 = (uint8_t)main_task[i].stack_pos;
+        system.tcb[i].sleep_queue = NULL;
+        runqueue_add(&system_tcb[i], i);
+    }
 }
-
