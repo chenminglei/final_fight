@@ -49,7 +49,7 @@ void dev_init(void)
     int i = 0;
     for(i = 0;i < NUM_DEVICES;i ++) {
 	devices[i].next_match = dev_freq[i];
-	devices[i].sleep_queue = null;	
+	devices[i].sleep_queue = NULL;	
     }
 }
 
@@ -62,10 +62,9 @@ void dev_init(void)
  */
 void dev_wait(unsigned int dev __attribute__((unused)))
 {
-    tcb_t* curtcb = get_cur_tcb();
-    runqueue_remove(curtcb -> native_prio);
-    devices[dev].sleep_queue = curtcb; 
-	
+    tcb_t* cur_tcb = get_cur_tcb();
+    cur_tcb->sleep_queue = device[dev].sleep_queue;
+    device[dev].sleep_queue = cur_tcb; 
 }
 
 
@@ -78,6 +77,19 @@ void dev_wait(unsigned int dev __attribute__((unused)))
  */
 void dev_update(unsigned long millis __attribute__((unused)))
 {
-	
+    for (int i = 0; i < NUM_DEVICES; i++) {
+        if (device[i].next_match == millis) {
+            tcb_t * sleep_tcb = device[i].sleep_queue;
+            while (sleep_tcb != NULL) {
+                runqueue_add(sleep_tcb, sleep_tcb->cur_prio);
+                sleep_tcb = sleep_tcb->sleep_queue; 
+            }
+
+            device[i].next_match = dev_freq[i];
+        }
+        else {
+            device[i].next_match -= millis;
+        }
+    }	
 }
 
