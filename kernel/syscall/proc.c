@@ -31,9 +31,9 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     runqueue_init();
     mutex_init();
     dev_init();
-    dispatch_init(sys_tcb + OS_MAX_TASKS - 1);
     sched_init(tasks);
     allocate_tasks(&tasks, num_tasks);
+    dispatch_init(system_tcb + OS_MAX_TASKS - 1);
     return 1; /* remove this line after adding your code */
 }
 
