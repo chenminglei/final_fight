@@ -22,7 +22,7 @@
 #endif
 
 mutex_t gtMutex[OS_NUM_MUTEX];
-volatile int cur_num_mutex;
+volatile int cur_num_mutex = 0;
 
 void mutex_init()
 {
@@ -91,8 +91,9 @@ int mutex_lock(int mutex  __attribute__((unused)))
         return 0;
     }    
     else {
-        add_sleep_queue(tmp_mutex, cur_tcb);        
+        add_sleep_queue(mutex_tmp, cur_tcb);        
         dispatch_sleep();
+	enable_interrupts();
         return 0;
     }
 }
