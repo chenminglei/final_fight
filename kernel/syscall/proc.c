@@ -24,12 +24,25 @@
 
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */
+    if(num_tasks > OS_MAX_TASKS)
+	return -EINVAL;
+    if((unsigned long)tasks > USR_END_ADDR || (unsigned long)tasks < USR_START_ADDR)
+	return -EFAULT;
+    runqueue_init();
+    dev_init();
+    dispatch_init(sys_tcb + OS_MAX_TASKS - 1);
+    sched_init(tasks);
+    allocate_tasks(&tasks, num_tasks);
+    return 1; /* remove this line after adding your code */
 }
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */	
+    if(num_tasks > OS_MAX_TASKS)
+	return -EINVAL;
+    dev_wait(dev);
+    
+    return 1; /* remove this line after adding your code */	
 }
 
 /* An invalid syscall causes the kernel to exit. */
