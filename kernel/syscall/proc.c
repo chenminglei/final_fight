@@ -24,16 +24,24 @@
 
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-    if(num_tasks > OS_MAX_TASKS)
+    if(num_tasks > OS_AVAIL_TASKS)
 	return -EINVAL;
+
     if(!valid_addr(tasks, num_tasks, USR_END_ADDR, USR_START_ADDR))
 	return -EFAULT;
+
     runqueue_init();
+
     mutex_init();
+
     dev_init();
-    sched_init(tasks);
+
     allocate_tasks(&tasks, num_tasks);
+
+    sched_init(tasks);
+
     dispatch_init(system_tcb + OS_MAX_TASKS - 1);
+
     return 1; /* remove this line after adding your code */
 }
 
@@ -53,5 +61,6 @@ void invalid_syscall(unsigned int call_num  __attribute__((unused)))
     printf("Kernel panic: invalid syscall -- 0x%08x\n", call_num);
 
     disable_interrupts();
+
     while(1);
 }
