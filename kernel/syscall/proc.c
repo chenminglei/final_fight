@@ -41,7 +41,9 @@ int event_wait(unsigned int dev  __attribute__((unused)))
 {
     if (dev > NUM_DEVICES)
         return -EINVAL;
+
     dev_wait(dev);
+
     return 0;
 }
 
