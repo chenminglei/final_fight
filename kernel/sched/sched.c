@@ -37,6 +37,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
 	for(i = 0;i < OS_MAX_TASKS;i ++) {
 	    system_tcb[i].native_prio = i;
 	    system_tcb[i].cur_prio = i;
+	    system_tcb[i].lr = &launch_task;
 	    system_tcb[i].context.r4 = (uint8_t)main_task[i].lambda; 
 	    system_tcb[i].context.r5 = (uint8_t)main_task[i].data;
 	    system_tcb[i].context.r6 = (uint8_t)main_task[i].stack_pos;
