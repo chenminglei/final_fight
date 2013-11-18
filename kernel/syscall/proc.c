@@ -29,7 +29,10 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */	
+    if (dev > NUM_DEVICES)
+        return -EINVAL;
+    dev_wait(dev);
+    return 0;
 }
 
 /* An invalid syscall causes the kernel to exit. */
