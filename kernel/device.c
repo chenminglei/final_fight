@@ -81,7 +81,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
     tcb_t * sleep_tcb = NULL;
     tcb_t * next_tcb = NULL;
     for (int i = 0; i < NUM_DEVICES; i++) {
-        if (device[i].next_match == millis) {
+        if (device[i].next_match <= millis) {
             sleep_tcb = device[i].sleep_queue;
             device[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
@@ -90,11 +90,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
                 sleep_tcb->sleep_queue = NULL;
                 sleep_tcb = next_tcb; 
             }
-
-            device[i].next_match = dev_freq[i];
-        }
-        else {
-            device[i].next_match -= millis;
+            device[i].next_match += dev_freq[i];
         }
     }	
 }

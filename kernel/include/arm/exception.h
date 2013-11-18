@@ -45,7 +45,7 @@ typedef struct ex_context ex_context_t;
 
 
 void init_exception(void);
-void installHandler(unsigned int * vec_address, unsigned int new_address, unsigned int type);
+int installHandler(unsigned int * vec_address, unsigned int new_address);
 
 INLINE void enable_interrupts(void)
 {
