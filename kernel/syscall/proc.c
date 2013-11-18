@@ -48,8 +48,8 @@ int event_wait(unsigned int dev  __attribute__((unused)))
 /* An invalid syscall causes the kernel to exit. */
 void invalid_syscall(unsigned int call_num  __attribute__((unused)))
 {
-	printf("Kernel panic: invalid syscall -- 0x%08x\n", call_num);
+    printf("Kernel panic: invalid syscall -- 0x%08x\n", call_num);
 
-	disable_interrupts();
-	while(1);
+    disable_interrupts();
+    while(1);
 }
