@@ -26,9 +26,10 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 {
     if(num_tasks > OS_MAX_TASKS)
 	return -EINVAL;
-    if((unsigned long)tasks > USR_END_ADDR || (unsigned long)tasks < USR_START_ADDR)
+    if(!valid_addr(tasks, num_tasks, USR_END_ADDR, USR_START_ADDR))
 	return -EFAULT;
     runqueue_init();
+    mutex_init();
     dev_init();
     dispatch_init(sys_tcb + OS_MAX_TASKS - 1);
     sched_init(tasks);
