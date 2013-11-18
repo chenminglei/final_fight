@@ -22,19 +22,7 @@
 #endif
 
 mutex_t gtMutex[OS_NUM_MUTEX];
-extern volatile int cur_num_mutex;
-
-
-//struct mutex
-//{
-//        bool_e  bAvailable;             /* flag for availability */
-//        tcb_t*  pHolding_Tcb;   /* who are using this mutex */
-//        bool_e  bLock;                  /* 1 for lock/0 for unlock */
-//        tcb_t*  pSleep_queue;   /* list of applications waiting for this mutex */
-//};
-//typedef struct mutex mutex_t;
-//*/
-
+volatile int cur_num_mutex;
 
 void mutex_init()
 {
@@ -42,6 +30,7 @@ void mutex_init()
     for (int i = 0; i < OS_NUM_MUTEX; i++) {
         mutex_tmp = gtMutex[i];
         mutex_tmp.bAvailable = FALSE;
+        mutex_tmp.bLock = FALSE;
         mutex_tmp.pHolding_Tcb = NULL;
         mutex_tmp.pSleep_queue = NULL;
     }	
@@ -143,8 +132,8 @@ int mutex_unlock(int mutex  __attribute__((unused)))
             cur_tcb->sleep_queue = NULL;
             mutex_tmp.bLock = TRUE;
             mutex_tmp.pSleep_queue = mutex_tmp.pHolding_Tcb->sleep_queue;
+            runqueue_add(mutex_tmp.pHolding_Tcb, mutex_tmp.pHolding_Tcb->cur_prio);
         }
-        dispatch_save();
         enable_interrupts();
         return 0;
     }    
