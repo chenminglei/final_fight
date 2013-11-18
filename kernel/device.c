@@ -45,8 +45,12 @@ static dev_t devices[NUM_DEVICES];
  */
 void dev_init(void)
 {
-   /* the following line is to get rid of the warning and should not be needed */	
-   devices[0]=devices[0];
+   /* the following line is to get rid of the warning and should not be needed */	i
+    int i = 0;
+    for(i = 0;i < NUM_DEVICES;i ++) {
+	devices[i].next_match = dev_freq[i];
+	devices[i].sleep_queue = null;	
+    }
 }
 
 
@@ -58,6 +62,9 @@ void dev_init(void)
  */
 void dev_wait(unsigned int dev __attribute__((unused)))
 {
+    tcb_t* curtcb = get_cur_tcb();
+    runqueue_remove(curtcb -> native_prio);
+    devices[dev].sleep_queue = curtcb; 
 	
 }
 
