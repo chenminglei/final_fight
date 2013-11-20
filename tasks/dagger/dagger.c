@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <task.h>
 #include <unistd.h>
-
+#include <syscall.h>
 
 void panic(const char* str)
 {
