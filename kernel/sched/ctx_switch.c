@@ -14,6 +14,8 @@
 #include <kernel.h>
 #include "sched_i.h"
 
+#include <arm/exception.h>
+
 #ifdef DEBUG_MUTEX
 #include <exports.h>
 #endif
@@ -76,7 +78,7 @@ void dispatch_sleep(void)
     tcb_t* old_tcb = cur_tcb;
     cur_tcb = next_tcb;
     ctx_switch_full(&(next_tcb->context), &(cur_tcb->context));
-   
+    enable_interrupts();   
 }
 
 /**
