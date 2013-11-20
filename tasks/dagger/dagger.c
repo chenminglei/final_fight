@@ -23,8 +23,8 @@ void fun1(void* str)
 	while(1)
 	{
 		putchar((int)str);
-//		if (event_wait(0) < 0)
-//			panic("Dev 0 failed");
+		if (event_wait(0) < 0)
+			panic("Dev 0 failed");
 	}
 }
 
@@ -33,8 +33,8 @@ void fun2(void* str)
 	while(1)
 	{
 		putchar((int)str);
-//		if (event_wait(1) < 0)
-//			panic("Dev 1 failed");
+		if (event_wait(1) < 0)
+			panic("Dev 1 failed");
 	}
 }
 
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 	tasks[1].C = 1;
 	tasks[1].T = PERIOD_DEV1;
 
-	//task_create(tasks, 2);
+	task_create(tasks, 2);
 	argc=argc; /* remove compiler warning */
 	argv[0]=argv[0]; /* remove compiler warning */
 
