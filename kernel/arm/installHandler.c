@@ -18,7 +18,7 @@ int installHandler(unsigned int * vec_address, unsigned int new_address) {
 
         /* Check the ldr instruction */
         if ((vec_instr & LDR_DEL_DIST) != LDR_CHECK) {
-            printf("info : instruction in vector table incorrect!\n");
+            printf("Info : instruction in vector table incorrect!\n");
             return -1;
         }
 

@@ -22,12 +22,5 @@ void init_interrupt() {
     reg_clear(INT_ICLR_ADDR, 1 << INT_OSTMR_0);
     /* Enable the OS time 0 in the ICMF */
     reg_write(INT_ICMR_ADDR, 1 << INT_OSTMR_0);
-
-    /* Set the initial value of OSMR to be 10ms */
-    reg_write(OSTMR_OSMR_ADDR(0), OSMR_COUNT);
-    /* Clear the OSCR */
-    reg_write(OSTMR_OSCR_ADDR, 0);
-    /* Enable the OSMR0 interrupt in OIER */
-    reg_set(OSTMR_OIER_ADDR, OSTMR_OIER_E0);
 }
 
