@@ -7,8 +7,9 @@
 
         .file   "irqSetup.S"
         .text
-        .extern  irq_stack_top
         .global  irqSetup
+        .extern irq_stack_top
+
 
 irqSetup:
         MRS  r2, cpsr            @ switch to irq mode

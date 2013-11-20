@@ -16,6 +16,7 @@
 #include <arm/psr.h>
 #include <arm/exception.h>
 
+
 /**
  * @brief Fake device maintainence structure.
  * Since our tasks are periodic, we can represent 
@@ -45,11 +46,11 @@ static dev_t devices[NUM_DEVICES];
  */
 void dev_init(void)
 {
-   /* the following line is to get rid of the warning and should not be needed */	i
+   /* the following line is to get rid of the warning and should not be needed */
     int i = 0;
     for(i = 0;i < NUM_DEVICES;i ++) {
 	devices[i].next_match = dev_freq[i];
-	devices[i].sleep_queue = NULL;	
+	devices[i].sleep_queue = NULL;
     }
 }
 
@@ -63,8 +64,8 @@ void dev_init(void)
 void dev_wait(unsigned int dev __attribute__((unused)))
 {
     tcb_t* cur_tcb = get_cur_tcb();
-    cur_tcb->sleep_queue = device[dev].sleep_queue;
-    device[dev].sleep_queue = cur_tcb; 
+    cur_tcb->sleep_queue = devices[dev].sleep_queue;
+    devices[dev].sleep_queue = cur_tcb;
     dispatch_sleep();
 }
 
@@ -80,17 +81,18 @@ void dev_update(unsigned long millis __attribute__((unused)))
 {
     tcb_t * sleep_tcb = NULL;
     tcb_t * next_tcb = NULL;
-    for (int i = 0; i < NUM_DEVICES; i++) {
-        if (device[i].next_match <= millis) {
-            sleep_tcb = device[i].sleep_queue;
-            device[i].sleep_queue = NULL;
+    int i = 0;
+    for ( i = 0; i < NUM_DEVICES; i++) {
+        if (devices[i].next_match <= millis) {
+            sleep_tcb = devices[i].sleep_queue;
+            devices[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
                 runqueue_add(sleep_tcb, sleep_tcb->cur_prio);
                 next_tcb = sleep_tcb->sleep_queue;
                 sleep_tcb->sleep_queue = NULL;
                 sleep_tcb = next_tcb; 
             }
-            device[i].next_match += dev_freq[i];
+            devices[i].next_match += dev_freq[i];
         }
     }	
 }

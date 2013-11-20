@@ -21,15 +21,15 @@ IRQ_Handler:
         LDR    r2, =global_data
         LDR    r8, [r2]
 	
-	MRS    r3, cpsr               @disable IRQ
-	ORR    r3, r3, #0x80
+		MRS    r3, cpsr               @disable IRQ
+		ORR    r3, r3, #0x80
         MSR    cpsr, r3
 
         BL     C_IRQ_HANDLER          @ jump to C IRQ handler
 
-	MRS    r3, cpsr               @enable IRQ
-	BIC    r3, r3, #0x80
-	MSR    cpsr, r3
+		MRS    r3, cpsr               @enable IRQ
+		BIC    r3, r3, #0x80
+		MSR    cpsr, r3
 
         LDR    r2, [sp, #14*4]                                     
         MSR    spsr, r2               @ restore spsr
@@ -38,4 +38,4 @@ IRQ_Handler:
         ADD    sp, sp, #4                                          
         
         SUB    lr, lr, #4                 @ go back to user program
-	MOVS   pc, lr
+		MOVS   pc, lr

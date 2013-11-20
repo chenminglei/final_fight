@@ -14,7 +14,7 @@
 #include <config.h>
 #include <kernel.h>
 #include <syscall.h>
-#include <sched.h>
+#include "sched.h"
 
 #include <arm/reg.h>
 #include <arm/psr.h>
