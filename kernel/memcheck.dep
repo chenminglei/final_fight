@@ -1,0 +1,8 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/memcheck.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/memcheck.c \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/kernel.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/kernel.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h:

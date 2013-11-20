@@ -1,0 +1,14 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/raise.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/raise.c \
+  /home/chinalidi/Desktop/lab4/final_fight/uboot/include/exports.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/stdarg.h \
+  /home/chinalidi/Desktop/lab4/final_fight/uboot/include/_exports.h
+
+/home/chinalidi/Desktop/lab4/final_fight/uboot/include/exports.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/stdarg.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/uboot/include/_exports.h:

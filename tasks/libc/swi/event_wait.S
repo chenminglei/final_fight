@@ -15,7 +15,7 @@
         .text
         .extern errno
 
-FUNC(read)
+FUNC(event_wait)
 
         swi EVENT_WAIT   @call event wait interrupt
         CMP r0, #0     @compare return value with 0

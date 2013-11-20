@@ -15,7 +15,7 @@
         .text
         .extern errno
 
-FUNC(read)
+FUNC(task_create)
 
         swi CREATE_SWI   @call task create interrupt
         CMP r0, #0     @compare return value with 0

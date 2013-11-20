@@ -1,0 +1,8 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/arm/int_asm.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/arm/int_asm.S \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/asm.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/psr.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/asm.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/psr.h:

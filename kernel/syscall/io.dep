@@ -1,0 +1,35 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/syscall/io.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/syscall/io.c \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/errno.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/fileno.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/physmem.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/syscall.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h \
+  /home/chinalidi/Desktop/lab4/final_fight/uboot/include/exports.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/stdarg.h \
+  /home/chinalidi/Desktop/lab4/final_fight/uboot/include/_exports.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/kernel.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/errno.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/fileno.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/physmem.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/syscall.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/uboot/include/exports.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/stdarg.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/uboot/include/_exports.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/kernel.h:

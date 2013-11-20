@@ -1,0 +1,8 @@
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/swi/event_wait.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/swi/event_wait.S \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/asm.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/swi.h
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/asm.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/swi.h:
