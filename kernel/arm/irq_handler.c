@@ -2,6 +2,8 @@
 #include <arm/timer.h>
 #include <exports.h>
 #include "constant.h"
+#include <device.h>
+
 /*introduce the global variable */
 volatile unsigned int cur_time;
 volatile unsigned int cur_bias;
@@ -21,7 +23,7 @@ void irq_handler() {
             cur_time++;
         }    
         
-        dev_update(curtime*TIME_RESOLUTION);        
+        dev_update(cur_time*TIME_RESOLUTION);
 
 	/*acknowledge the IRQ */
 	reg_set(OSTMR_OSSR_ADDR, OSTMR_OSSR_M0);

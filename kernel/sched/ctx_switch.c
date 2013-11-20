@@ -29,7 +29,7 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
     cur_tcb = idle;
-    ctx_swith_half(idle->context);	
+    ctx_switch_half(&(idle->context));
 }
 
 
@@ -47,7 +47,7 @@ void dispatch_save(void)
     tcb_t *next_tcb = runqueue_remove(highest_prio());
     tcb_t* old_tcb = cur_tcb;
     cur_tcb = next_tcb;
-    ctx_switch_full(cur_tcb->context, old_tcb->context);
+    ctx_switch_full(&(cur_tcb->context), &(old_tcb->context));
 }
 
 /**
@@ -60,7 +60,7 @@ void dispatch_nosave(void)
 {
     tcb_t * next_tcb = runqueue_remove(highest_prio());
     cur_tcb = next_tcb;
-    ctx_switch_half(next_tcb->context);   
+    ctx_switch_half(&(next_tcb->context));
 }
 
 
@@ -75,7 +75,7 @@ void dispatch_sleep(void)
     tcb_t * next_tcb = runqueue_remove(highest_prio());
     tcb_t* old_tcb = cur_tcb;
     cur_tcb = next_tcb;
-    ctx_switch_full(next_tcb->context, cur_tcb->context);	
+    ctx_switch_full(&(next_tcb->context), &(cur_tcb->context));
    
 }
 

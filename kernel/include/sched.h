@@ -35,4 +35,6 @@ void runqueue_add(tcb_t* tcb, uint8_t prio);
 tcb_t* runqueue_remove(uint8_t prio);
 uint8_t highest_prio(void);
 
+extern tcb_t system_tcb[OS_MAX_TASKS];
+
 #endif /* SCHED_H */

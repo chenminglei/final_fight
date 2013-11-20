@@ -107,7 +107,7 @@ uint8_t highest_prio(void)
 {
  	uint8_t x = 0;
 	uint8_t y = 0;
-	y = prio_unmap_table[group_bits];
+	y = prio_unmap_table[group_run_bits];
 	x = prio_unmap_table[run_bits[y]];
 	return ((y << 3) + x);
 }
