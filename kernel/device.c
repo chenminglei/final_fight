@@ -98,7 +98,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
             devices[i].next_match += dev_freq[i];
         }
     }
-    enable_interrupts();
     dispatch_save();	
+    enable_interrupts();
 }
 
