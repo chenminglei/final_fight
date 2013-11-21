@@ -9,6 +9,7 @@
 
         .file   "userSetup.S"
         .text
+        .extern  global_data
         .global  userSetup
 
 userSetup:
@@ -18,18 +19,9 @@ userSetup:
         MSR  cpsr, r2
 
         MOV  sp, #USR_STACK    @ set stack top at 0xa3000000
-        MOV  r2, r0
-        Add  r1, r1, r0, LSL #2 
 
-LC1:
-        SUB  r1, r1, #4          @ push all addresses of strings reference by argv into stack
-        LDR  r3, [r1]
-        STR  r3, [sp, #-4]!
+        LDR  r0, =global_data  @ restore r8
+        LDR  r8, [r0]
 
-        SUB  r2, r2, #1
-        CMP  r2, #0
-        BGT  LC1
-LC2:
-        STR  r0, [sp, #-4]!      @ push argc into stack
-        MOV  pc, #LOAD_ADDR
+        MOV  pc, #LOAD_ADDR    @ set pc to the start address of user program
 

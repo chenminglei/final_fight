@@ -22,7 +22,8 @@ unsigned long swi_time();
 //install the swi and irq handler
 int installHandler(unsigned int * vec_address, unsigned int new_address);
 // user set up
-void userSetup(int argc, char *argv[]);
+void userSetup();
+
 //set up the irq
 void irqSetup();
 

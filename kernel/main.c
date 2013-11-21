@@ -23,6 +23,9 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     global_data = table;
     app_startup();
 
+
+    printf("in kmain\n");
+
     /*install SWI and IRQ handler */
     if (installHandler((unsigned int *)VEC_SWI, (unsigned int)S_Handler) < 0) {
         printf("Error: swi handler install failed\n");
@@ -33,14 +36,21 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
         return 0;
     }
 
+
+    printf("in init\n");
     /*set up the interrupt controller*/
     init_interrupt();
 
+    printf("in time\n");
     /*set up the time registers */
     timeSetup();
 
+    printf("in user\n");
     /* Set up user program */
-    userSetup(argc, argv);
+    userSetup();
+
+    argc = argc;
+    argv[0] = argv[0];
 
     assert(0);        /* should never get here */
 }
