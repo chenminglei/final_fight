@@ -20,8 +20,8 @@ userSetup:
 
         MOV  sp, #USR_STACK    @ set stack top at 0xa3000000
 
-        LDR  r0, =global_data  @ restore r8
-        LDR  r8, [r0]
+        LDR  r2, =global_data  @ restore r8
+        LDR  r8, [r2]
 
         MOV  pc, #LOAD_ADDR    @ set pc to the start address of user program
 

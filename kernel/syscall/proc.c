@@ -25,22 +25,29 @@
 
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
+    printf("task_create1\n");
+    int a = 0;
+      
     if(num_tasks > OS_AVAIL_TASKS)
 	return -EINVAL;
 
-    if(!valid_addr(tasks, num_tasks, USR_END_ADDR, USR_START_ADDR))
+    printf("task_create2\n");
+    if(!valid_addr(tasks, num_tasks, USR_START_ADDR, USR_END_ADDR))
 	return -EFAULT;
 
+    printf("task_create3\n");
 
     mutex_init();
 
     dev_init();
 
     allocate_tasks(&tasks, num_tasks);
+
     sched_init(NULL);
+    
+    while (a == 0) {}
 
-
-    return 1; /* remove this line after adding your code */
+    return 1;
 }
 
 int event_wait(unsigned int dev  __attribute__((unused)))

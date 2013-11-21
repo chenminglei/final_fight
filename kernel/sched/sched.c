@@ -21,14 +21,15 @@
 
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 static void __attribute__((unused)) idle(void);
+
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
     runqueue_init();
     system_tcb[IDLE_PRIO].native_prio = IDLE_PRIO;
     system_tcb[IDLE_PRIO].cur_prio = IDLE_PRIO;
-    system_tcb[IDLE_PRIO].context.lr = &launch_task;
+    system_tcb[IDLE_PRIO].context.lr = launch_task;
     system_tcb[IDLE_PRIO].context.sp = system_tcb[IDLE_PRIO].kstack_high;
-    system_tcb[IDLE_PRIO].context.r4 = (uint32_t)&idle;
+    system_tcb[IDLE_PRIO].context.r4 = (uint32_t)idle;
     system_tcb[IDLE_PRIO].context.r5 = (uint32_t)NULL;
     system_tcb[IDLE_PRIO].context.r6 = (uint32_t)NULL;
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
@@ -77,7 +78,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     for (i = 0;i < num_tasks;i ++) {
         system_tcb[i].native_prio = i;
         system_tcb[i].cur_prio = i;
-        system_tcb[i].context.lr = &launch_task;
+        system_tcb[i].context.lr = launch_task;
         system_tcb[i].context.sp = system_tcb[i].kstack_high;
         system_tcb[i].context.r4 = (uint32_t)tasks[i]->lambda;
         system_tcb[i].context.r5 = (uint32_t)tasks[i]->data;

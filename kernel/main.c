@@ -20,9 +20,8 @@ uint32_t global_data;
 
 int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused)), uint32_t table)
 {
-    global_data = table;
     app_startup();
-
+    global_data = table;
 
     printf("in kmain\n");
 

@@ -40,7 +40,7 @@ void fun2(void* str)
 
 int main(int argc, char** argv)
 {
-	puts("Your code get dagger!\n");
+	printf("Your code get dagger!\n");
 
 	task_t tasks[2];
 	tasks[0].lambda = fun1;
