@@ -25,15 +25,20 @@
 
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
+    disable_interrupts();
     printf("task_create1\n");
     int a = 0;
       
-    if(num_tasks > OS_AVAIL_TASKS)
+    if(num_tasks > OS_AVAIL_TASKS) {
+        enable_interrupts();
 	return -EINVAL;
+    }
 
     printf("task_create2\n");
-    if(!valid_addr(tasks, num_tasks, USR_START_ADDR, USR_END_ADDR))
+    if(!valid_addr(tasks, num_tasks, USR_START_ADDR, USR_END_ADDR)) {
+        enable_interrupts();
 	return -EFAULT;
+    }
 
     printf("task_create3\n");
 

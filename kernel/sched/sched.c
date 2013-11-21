@@ -35,6 +35,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
  
     runqueue_add(&system_tcb[IDLE_PRIO], IDLE_PRIO);
+    enable_interrupts();
     dispatch_init(system_tcb + IDLE_PRIO);
 }
 

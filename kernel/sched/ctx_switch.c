@@ -79,7 +79,6 @@ void dispatch_sleep(void)
     tcb_t * next_tcb = runqueue_remove(highest_prio());
     cur_tcb = next_tcb;
     ctx_switch_full(&(next_tcb->context), &(cur_tcb->context));
-    enable_interrupts();   
 }
 
 /**

@@ -84,12 +84,14 @@ void dev_update(unsigned long millis __attribute__((unused)))
     tcb_t * sleep_tcb = NULL;
     tcb_t * next_tcb = NULL;
     int i = 0;
+    int add = 0;
     disable_interrupts();
     for ( i = 0; i < NUM_DEVICES; i++) {
         if (devices[i].next_match <= millis) {
             sleep_tcb = devices[i].sleep_queue;
             devices[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
+                add = 1;
                 runqueue_add(sleep_tcb, sleep_tcb->cur_prio);
                 next_tcb = sleep_tcb->sleep_queue;
                 sleep_tcb->sleep_queue = NULL;
@@ -98,7 +100,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
             devices[i].next_match += dev_freq[i];
         }
     }
-    dispatch_save();	
+    if (add == 1) dispatch_save();	
     enable_interrupts();
 }
 
