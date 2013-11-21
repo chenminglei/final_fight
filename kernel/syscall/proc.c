@@ -14,7 +14,8 @@
 #include <config.h>
 #include <kernel.h>
 #include <syscall.h>
-#include "sched.h"
+#include <sched.h>
+#include <lock.h>
 
 #include <arm/reg.h>
 #include <arm/psr.h>
@@ -30,17 +31,14 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     if(!valid_addr(tasks, num_tasks, USR_END_ADDR, USR_START_ADDR))
 	return -EFAULT;
 
-    runqueue_init();
 
     mutex_init();
 
     dev_init();
 
     allocate_tasks(&tasks, num_tasks);
+    sched_init(NULL);
 
-    sched_init(tasks);
-
-    dispatch_init(system_tcb + OS_MAX_TASKS - 1);
 
     return 1; /* remove this line after adding your code */
 }

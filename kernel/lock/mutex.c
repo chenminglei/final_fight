@@ -23,7 +23,7 @@
 
 mutex_t gtMutex[OS_NUM_MUTEX];
 volatile int cur_num_mutex = 0;
-
+void add_sleep_queue(mutex_t mutex_tmp, tcb_t * tcb_tmp);
 
 void mutex_init() {
 	mutex_t mutex_tmp;

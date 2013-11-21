@@ -16,6 +16,8 @@
 #include <syscall.h>
 #include <exports.h>
 #include <kernel.h>
+#include <sched.h>
+#include <lock.h>
 
 #define EOT_CHAR 0x04
 #define BAS_CHAR 0x08
@@ -31,15 +33,15 @@
 ssize_t read_syscall(int fd __attribute__((unused)), void *buf __attribute__((unused)), size_t count __attribute__((unused)))
 {
     int tmp;
-    ssize_t i = 0;
-
+    size_t i = 0;
+    char* bufc = buf;
     // if file descriptor does not match stdin return error
     if (fd != STDIN_FILENO) {
         return -EBADF;
     }
     // if the memory range specified exceeds the size of SDRAM, return error
-    if ((unsigned)buf < SDRAM_LOW
-        || (unsigned)(buf + count) > SDRAM_HIGH) {
+    if ((unsigned)bufc < SDRAM_LOW
+        || (unsigned)(bufc + count) > SDRAM_HIGH) {
         return -EFAULT;
     }
     while (i < count) {
@@ -78,7 +80,7 @@ ssize_t read_syscall(int fd __attribute__((unused)), void *buf __attribute__((un
 ssize_t write_syscall(int fd  __attribute__((unused)), const void *buf  __attribute__((unused)), size_t count  __attribute__((unused)))
 {
     char c;
-    ssize_t num = 0;
+    size_t num = 0;
 
     if(fd == STDOUT_FILENO) {
         while(num < count) {
