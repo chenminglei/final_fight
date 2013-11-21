@@ -63,10 +63,12 @@ void dev_init(void)
  */
 void dev_wait(unsigned int dev __attribute__((unused)))
 {
+    disable_interrupts();
     tcb_t* cur_tcb = get_cur_tcb();
     cur_tcb->sleep_queue = devices[dev].sleep_queue;
     devices[dev].sleep_queue = cur_tcb;
     dispatch_sleep();
+    enable_interrupts();
 }
 
 
@@ -82,6 +84,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
     tcb_t * sleep_tcb = NULL;
     tcb_t * next_tcb = NULL;
     int i = 0;
+    disable_interrupts();
     for ( i = 0; i < NUM_DEVICES; i++) {
         if (devices[i].next_match <= millis) {
             sleep_tcb = devices[i].sleep_queue;
@@ -94,6 +97,8 @@ void dev_update(unsigned long millis __attribute__((unused)))
             }
             devices[i].next_match += dev_freq[i];
         }
-    }	
+    }
+    enable_interrupts();
+    dispatch_save();	
 }
 
