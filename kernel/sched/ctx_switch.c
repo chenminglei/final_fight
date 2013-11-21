@@ -45,6 +45,8 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
+    if(cur_tcb -> cur_prio > highest_prio())
+	return;
     runqueue_add(cur_tcb, cur_tcb->cur_prio);
     tcb_t *next_tcb = runqueue_remove(highest_prio());
     tcb_t* old_tcb = cur_tcb;
