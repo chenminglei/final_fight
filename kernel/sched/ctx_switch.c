@@ -49,8 +49,11 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
+    printf("dispatch_save 1\n");
     if(cur_tcb->cur_prio < highest_prio())
 	return;
+    printf("dispatch_save 2\n");
+    printf("cur: %u, high: %u \n", cur_tcb->cur_prio, highest_prio());
     runqueue_add(cur_tcb, cur_tcb->cur_prio);
     tcb_t *next_tcb = runqueue_remove(highest_prio());
     tcb_t* old_tcb = cur_tcb;
@@ -68,6 +71,7 @@ void dispatch_nosave(void)
 {
     printf("dispatch_nosave\n");
     tcb_t * next_tcb = runqueue_remove(highest_prio());
+    printf("dispatch_nosave highest prio: %u\n", next_tcb->cur_prio);
     printf("address of next tcb: %x\n", (unsigned int)next_tcb);
     cur_tcb = next_tcb;
     printf("dispatch_nosave %x \n", (next_tcb->context).r4);

@@ -35,9 +35,9 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     system_tcb[IDLE_PRIO].context.r8 = global_data;
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
  
-    runqueue_add(&system_tcb[IDLE_PRIO], IDLE_PRIO);
-    //dispatch_init(&system_tcb[IDLE_PRIO]);
-    dispatch_nosave();
+    runqueue_add(&system_tcb[IDLE_PRIO], (uint8_t)IDLE_PRIO);
+    dispatch_init(&system_tcb[IDLE_PRIO]);
+    //dispatch_nosave();
 }
 
 /**

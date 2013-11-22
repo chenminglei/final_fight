@@ -12,6 +12,7 @@
 #include <kernel.h>
 #include <sched.h>
 #include "sched_i.h"
+#include <exports.h>
 
 
 
@@ -35,7 +36,7 @@ static uint8_t group_run_bits __attribute__((unused));
 static uint8_t prio_unmap_table[]  __attribute__((unused)) =
 {
 
-0, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+7, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
@@ -59,10 +60,10 @@ static uint8_t prio_unmap_table[]  __attribute__((unused)) =
 void runqueue_init(void)
 {
     int i = 0;
-    for(i = 0;i < OS_MAX_TASKS/8;i ++) {
+    for(i = 0; i < OS_MAX_TASKS/8; i++) {
 	run_bits[i] = 0;	
     }   
-    for(i = 0;i < OS_MAX_TASKS;i ++) {
+    for(i = 0; i < OS_MAX_TASKS; i++) {
 	run_list[i] = NULL;	
     } 
     group_run_bits = 0;
@@ -78,12 +79,15 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
 {
-	tcb -> cur_prio = prio;	
+        printf("runqueue_add: %u\n", highest_prio());
+        printf("runqueue_add prio: %u\n", prio);
+	tcb->cur_prio = prio;	
 	uint8_t y = (prio >> 3);
 	uint8_t x = prio & 0x07;
 	run_list[prio] = tcb;
 	group_run_bits = group_run_bits | (1 << y);
 	run_bits[y] = run_bits[y] | (1 << x); 	
+        printf("runqueue_add: %u\n", highest_prio());
 }
 
 
@@ -96,12 +100,15 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
+        printf("runqueue_remove: %u\n", highest_prio());
+        printf("runqueue_remove prio: %u\n", prio);
 	uint8_t y = prio >> 3;
 	uint8_t x = prio & 0x07;
 	tcb_t* task = run_list[prio];
 	run_list[prio] = NULL;
-	group_run_bits = group_run_bits ^ (1 << y);
-	run_bits[y] = run_bits[y] ^ (1 << x);
+	run_bits[y] = run_bits[y] & (~(1 << x));
+	if (run_bits[y] == 0) group_run_bits = group_run_bits & (~(1 << y));
+        printf("runqueue_remove: %u\n", highest_prio());
 	return task;
 }
 
