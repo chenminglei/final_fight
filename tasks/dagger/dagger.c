@@ -20,6 +20,7 @@ void panic(const char* str)
 
 void fun1(void* str)
 {
+	printf("Your code get fun1!\n");
 	while(1)
 	{
 		putchar((int)str);
@@ -30,6 +31,7 @@ void fun1(void* str)
 
 void fun2(void* str)
 {
+	printf("Your code get fun2!\n");
 	while(1)
 	{
 		putchar((int)str);

@@ -29,7 +29,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     printf("task_create1\n");
     int a = 0;
       
-    if(num_tasks > OS_AVAIL_TASKS) {
+    if(num_tasks >= OS_AVAIL_TASKS) {
         enable_interrupts();
 	return -EINVAL;
     }

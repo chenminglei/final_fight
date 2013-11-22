@@ -33,6 +33,7 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
     printf("dispatch_init\n");
     printf("dispatch_init %x \n", (idle->context).r4);
+    cur_tcb = idle;
     runqueue_remove(idle->cur_prio);
     ctx_switch_half(&(idle->context));
 }
@@ -48,7 +49,7 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-    if(cur_tcb->cur_prio > highest_prio())
+    if(cur_tcb->cur_prio < highest_prio())
 	return;
     runqueue_add(cur_tcb, cur_tcb->cur_prio);
     tcb_t *next_tcb = runqueue_remove(highest_prio());
@@ -65,8 +66,11 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
+    printf("dispatch_nosave\n");
     tcb_t * next_tcb = runqueue_remove(highest_prio());
+    printf("address of next tcb: %x\n", (unsigned int)next_tcb);
     cur_tcb = next_tcb;
+    printf("dispatch_nosave %x \n", (next_tcb->context).r4);
     ctx_switch_half(&(next_tcb->context));
 }
 
