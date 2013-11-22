@@ -74,7 +74,9 @@ int event_wait(unsigned int dev  __attribute__((unused)))
         return -EINVAL;
 
     dev_wait(dev);
-
+    
+    printf("back to event_wait\n");
+    
     return 0;
 }
 

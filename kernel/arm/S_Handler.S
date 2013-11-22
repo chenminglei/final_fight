@@ -13,17 +13,22 @@
            
                                                        
 S_Handler:                                                                     
-        SUB    sp, sp, #4                                                      
         STMFD  sp!, {r0-r12, lr}      @ store registers into stack             
-       
+      
+        MRS    r0, spsr
+        STMFD  sp, {r0, sp, lr}^
+        ADD    sp, sp, #-12
+ 
         MRS    r2, cpsr               @ enable irq
         BIC    r2, r2, #0x80
         MSR    cpsr, r2        
 
-        MRS    r2, spsr               @ store spsr into stack  
-        STR    r2, [sp, #14*4]  
-	                                               
-        MOV    r1, sp                 @ make current sp as the second parameter
+        @MRS    r2, spsr              @ store spsr into stack  
+        @STR    r2, [sp, #14*4]  
+	             
+        
+                                  
+        ADD    r1, sp, #12            @ make current sp as the second parameter
         LDR    r0, [lr, #-4]          @ get the swi code number
         BIC    r0, r0, #0xff000000                                 
         LDR    r2, =global_data
@@ -31,10 +36,16 @@ S_Handler:
 
         BL     C_SWI_HANDLER          @ jump to C swi handler      
 
-        LDR    r2, [sp, #14*4]                                     
-        MSR    spsr, r2               @ restore spsr           
-        ADD    sp, sp, #4                                      
-        LDMFD  sp!, {r1-r12, lr}      @ restore registers except r0
-        ADD    sp, sp, #4                                          
+        @LDR    r2, [sp, #14*4]                                     
+        @MSR    spsr, r2              @ restore spsr           
+        @ADD    sp, sp, #4                                      
+
+
+        LDMFD  sp, {r0, sp, lr}^
+        ADD    sp, sp, #12
+        MSR    spsr, r0
+
+
+        LDMFD  sp!, {r0-r12, lr}      @ restore registers except r0
         MOVS   pc, lr                 @ go back to user program    
 
