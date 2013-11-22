@@ -23,8 +23,7 @@ void irq_handler() {
             cur_time++;
         }    
         
-        dev_update(cur_time*TIME_RESOLUTION);
-
-	/*acknowledge the IRQ */
 	reg_set(OSTMR_OSSR_ADDR, OSTMR_OSSR_M0);
+
+        dev_update(cur_time*TIME_RESOLUTION);
 }

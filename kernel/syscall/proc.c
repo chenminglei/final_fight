@@ -35,7 +35,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     }
 
     printf("task_create2\n");
-    if(!valid_addr(tasks, num_tasks, USR_START_ADDR, USR_END_ADDR)) {
+    if(valid_addr(tasks, sizeof(task_t) * num_tasks, USR_START_ADDR, USR_END_ADDR) == 0) {
         enable_interrupts();
 	return -EFAULT;
     }
@@ -44,11 +44,15 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
     mutex_init();
 
-    dev_init();
+    printf("mutex_init\n");
 
     allocate_tasks(&tasks, num_tasks);
 
+    printf("allocate_tasks\n");
+
     sched_init(NULL);
+
+    printf("sched_init\n");
     
     while (a == 0) {}
 

@@ -19,7 +19,6 @@ unsigned long C_SWI_HANDLER(unsigned swi_num, void* regs) {
 	char *buf = NULL;
 	size_t count = 0;
 	unsigned long millis = 0;
-	task_t task;
 	unsigned int num = 0;
 	/*Decide which swi to run based on swi number */
 	switch (swi_num) {
@@ -48,9 +47,8 @@ unsigned long C_SWI_HANDLER(unsigned swi_num, void* regs) {
 		break;
 	case CREATE_SWI:
 		/* call swi_create */
-		task = (task_t) (*(task_t*)regs);
 		count = (size_t) ((int*)regs)[1];
-		result = task_create(&task, count);
+		result = task_create((task_t *)((unsigned *)regs)[0], count);
 		break;
 	case MUTEX_CREATE:
 		/* call mutex create */

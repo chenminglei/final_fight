@@ -20,6 +20,7 @@
 #include <exports.h>
 #endif
 
+
 static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
 
 /**
@@ -30,7 +31,9 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
  */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
-    cur_tcb = idle;
+    printf("dispatch_init\n");
+    printf("dispatch_init %x \n", (idle->context).r4);
+    runqueue_remove(idle->cur_prio);
     ctx_switch_half(&(idle->context));
 }
 
@@ -45,7 +48,7 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-    if(cur_tcb -> cur_prio > highest_prio())
+    if(cur_tcb->cur_prio > highest_prio())
 	return;
     runqueue_add(cur_tcb, cur_tcb->cur_prio);
     tcb_t *next_tcb = runqueue_remove(highest_prio());

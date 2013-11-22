@@ -24,19 +24,19 @@ static void __attribute__((unused)) idle(void);
 
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
-    runqueue_init();
     system_tcb[IDLE_PRIO].native_prio = IDLE_PRIO;
     system_tcb[IDLE_PRIO].cur_prio = IDLE_PRIO;
     system_tcb[IDLE_PRIO].context.lr = launch_task;
     system_tcb[IDLE_PRIO].context.sp = system_tcb[IDLE_PRIO].kstack_high;
+    printf("idle address 1: %x\n", (uint32_t)idle);
     system_tcb[IDLE_PRIO].context.r4 = (uint32_t)idle;
     system_tcb[IDLE_PRIO].context.r5 = (uint32_t)NULL;
     system_tcb[IDLE_PRIO].context.r6 = (uint32_t)NULL;
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
  
     runqueue_add(&system_tcb[IDLE_PRIO], IDLE_PRIO);
-    enable_interrupts();
-    dispatch_init(system_tcb + IDLE_PRIO);
+    //dispatch_init(&system_tcb[IDLE_PRIO]);
+    dispatch_nosave();
 }
 
 /**
@@ -76,6 +76,9 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
             }
         }
     }
+
+    runqueue_init();
+
     for (i = 0;i < num_tasks;i ++) {
         system_tcb[i].native_prio = i;
         system_tcb[i].cur_prio = i;

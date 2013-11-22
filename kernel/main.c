@@ -44,6 +44,12 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     /*set up the time registers */
     timeSetup();
 
+   
+    printf("in device\n");
+    /*set up the devices */
+    dev_init();
+
+
     printf("in user\n");
     /* Set up user program */
     userSetup();

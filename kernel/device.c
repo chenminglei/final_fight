@@ -16,6 +16,7 @@
 #include <arm/psr.h>
 #include <arm/exception.h>
 
+#include <exports.h>
 
 /**
  * @brief Fake device maintainence structure.
@@ -86,8 +87,11 @@ void dev_update(unsigned long millis __attribute__((unused)))
     int i = 0;
     int add = 0;
     disable_interrupts();
+
+    printf("dev_update\n"); 
+
     for ( i = 0; i < NUM_DEVICES; i++) {
-        if (devices[i].next_match <= millis) {
+        if (devices[i].next_match <= millis && devices[i].sleep_queue != NULL) {
             sleep_tcb = devices[i].sleep_queue;
             devices[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
@@ -101,6 +105,5 @@ void dev_update(unsigned long millis __attribute__((unused)))
         }
     }
     if (add == 1) dispatch_save();	
-    enable_interrupts();
 }
 

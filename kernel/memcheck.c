@@ -7,7 +7,7 @@
  */
 
 #include "kernel.h"
-
+#include <exports.h>
 /**
  * @brief This function verifies of a given buffer is within an address range.
  *
@@ -23,6 +23,7 @@
  */
 int valid_addr(const void* start, size_t count, uintptr_t base, uintptr_t bound)
 {
+
 	uintptr_t mem_start = (uintptr_t)start;
 	uintptr_t mem_end   = (uintptr_t)start + count;
 
