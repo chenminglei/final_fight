@@ -36,8 +36,8 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
  
     runqueue_add(&system_tcb[IDLE_PRIO], IDLE_PRIO);
-    dispatch_init(&system_tcb[IDLE_PRIO]);
-    //dispatch_nosave();
+    //dispatch_init(&system_tcb[IDLE_PRIO]);
+    dispatch_nosave();
 }
 
 /**
@@ -67,16 +67,21 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
 {
     uint8_t i = 0;
     uint8_t k = 0;
-    task_t* tmp = NULL;
-    for (i = 0;i < num_tasks;i ++) {
-        for (k = num_tasks - 1;k >= i + 1;k --) {
-            if (tasks[k]->T < tasks[k - 1]->T) {
-                tmp = tasks[k];
-                tasks[k] = tasks[k - 1];
-                tasks[k - 1] = tmp;
+    task_t tmp;
+    printf("address of task lambda's r4: %x\n", (uint32_t)((*tasks)[0].lambda));
+    printf("address of task lambda's r4: %x\n", (uint32_t)((*tasks)[1].lambda));
+    for (i = 0 ;i < num_tasks ;i++) {
+        for ( k = num_tasks - 1; k >= i + 1; k --) {
+            if ((*tasks)[k].T < (*tasks)[k - 1].T) {
+                tmp = (*tasks)[k];
+                (*tasks)[k] = (*tasks)[k - 1];
+                (*tasks)[k - 1] = tmp;
             }
         }
     }
+
+    printf("address of task lambda's r4: %x\n", (uint32_t)((*tasks)[0].lambda));
+    printf("address of task lambda's r4: %x\n", (uint32_t)((*tasks)[1].lambda));
 
     runqueue_init();
 
@@ -85,12 +90,13 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         system_tcb[i+1].cur_prio = i+1;
         system_tcb[i+1].context.lr = launch_task;
         system_tcb[i+1].context.sp = system_tcb[i+1].kstack_high;
-        system_tcb[i+1].context.r4 = (uint32_t)(tasks[i]->lambda);
-        system_tcb[i+1].context.r5 = (uint32_t)(tasks[i]->data);
-        system_tcb[i+1].context.r6 = (uint32_t)(tasks[i]->stack_pos);
+        system_tcb[i+1].context.r4 = (uint32_t)((*tasks)[i].lambda);
+        system_tcb[i+1].context.r5 = (uint32_t)((*tasks)[i].data);
+        system_tcb[i+1].context.r6 = (uint32_t)((*tasks)[i].stack_pos);
         system_tcb[i+1].context.r8 = global_data;
         system_tcb[i+1].sleep_queue = NULL;
         runqueue_add(&system_tcb[i+1], i+1);
         printf("address of tcb: %x\n", (unsigned int)&system_tcb[i+1]);
+        printf("address of tcb's r4: %x\n", system_tcb[i+1].context.r4);
     }
 }

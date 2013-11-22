@@ -28,6 +28,12 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     disable_interrupts();
     printf("task_create1\n");
     int a = 0;
+
+
+    printf("task lambda's r4: %x\n", (uint32_t)(tasks[0].lambda));
+    printf("task lambda's r4: %x\n", (uint32_t)(tasks[1].lambda));
+
+
       
     if(num_tasks >= OS_AVAIL_TASKS) {
         enable_interrupts();
@@ -43,6 +49,9 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     printf("task_create3\n");
 
     mutex_init();
+
+    printf("task lambda's r4: %x\n", (uint32_t)(tasks[0].lambda));
+    printf("task lambda's r4: %x\n", (uint32_t)(tasks[1].lambda));
 
     printf("mutex_init\n");
 
