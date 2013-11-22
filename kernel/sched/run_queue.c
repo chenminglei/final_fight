@@ -78,14 +78,12 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
 {
-        printf("runqueue_add %x \n", (tcb->context).r4);
 	tcb -> cur_prio = prio;	
 	uint8_t y = (prio >> 3);
 	uint8_t x = prio & 0x07;
 	run_list[prio] = tcb;
 	group_run_bits = group_run_bits | (1 << y);
 	run_bits[y] = run_bits[y] | (1 << x); 	
-        printf("runqueue_add %x \n", (tcb->context).r4);
 }
 
 

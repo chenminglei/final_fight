@@ -86,12 +86,11 @@ void dev_update(unsigned long millis __attribute__((unused)))
     tcb_t * next_tcb = NULL;
     int i = 0;
     int add = 0;
+
     disable_interrupts();
 
-    printf("dev_update\n"); 
-
     for ( i = 0; i < NUM_DEVICES; i++) {
-        if (devices[i].next_match <= millis && devices[i].sleep_queue != NULL) {
+        if (devices[i].next_match <= millis) {
             sleep_tcb = devices[i].sleep_queue;
             devices[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
@@ -101,7 +100,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
                 sleep_tcb->sleep_queue = NULL;
                 sleep_tcb = next_tcb; 
             }
-            devices[i].next_match += dev_freq[i];
+            devices[i].next_match = millis + dev_freq[i];
         }
     }
     if (add == 1) dispatch_save();	
