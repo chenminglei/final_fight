@@ -26,12 +26,14 @@ void panic(const char* str) {
 void fun1() {
         while (1) {
 		if (mutex_lock(mutext_num) == 0) {
+                        printf("fun1 enter lock\n");
 			++sum;
                         index1++;
 			if (event_wait(0) < 0) {
 				panic("Dev 0 failed");
 			}
-	                printf("Index1: %u, Index2: %u, Sum: %u\n", index1, index2, sum);
+	                //printf("Index1: %u, Index2: %u, Sum: %u\n", index1, index2, sum);
+                        printf("fun1 out lock\n");
 			mutex_unlock(mutext_num);
 		}
 	}
@@ -40,11 +42,13 @@ void fun1() {
 void fun2() {
 	while (1) {
 		if (mutex_lock(mutext_num) == 0) {
+                        printf("fun2 enter lock\n");
 			++sum;
                         index2++;
 			if (event_wait(1) < 0) {
 				panic("Dev 1 failed");
 			}
+                        printf("fun2 out lock\n");
 			mutex_unlock(mutext_num);
 		}
 	}

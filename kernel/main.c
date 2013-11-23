@@ -13,6 +13,7 @@
 #include <task.h>
 #include <sched.h>
 #include <device.h>
+#include <lock.h>
 #include <assert.h>
 #include <constant.h>
 
@@ -48,6 +49,11 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     printf("in device\n");
     /*set up the devices */
     dev_init();
+
+
+    printf("in mutex\n");
+    /*set up the mutex */
+    mutex_init();
 
 
     printf("in user\n");
