@@ -1,0 +1,14 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/sched/ub_test.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/sched/ub_test.c \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/sched.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/sched.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h:

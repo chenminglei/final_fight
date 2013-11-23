@@ -1,0 +1,32 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/arm/C_SWI_HANDLER.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/arm/C_SWI_HANDLER.c \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/main.h \
+  /home/chinalidi/Desktop/lab4/final_fight/uboot/include/exports.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/stdarg.h \
+  /home/chinalidi/Desktop/lab4/final_fight/uboot/include/_exports.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/swi.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/syscall.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/lock.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/main.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/uboot/include/exports.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/stdarg.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/uboot/include/_exports.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/swi.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/syscall.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/lock.h:

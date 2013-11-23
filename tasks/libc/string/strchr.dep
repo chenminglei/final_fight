@@ -1,0 +1,11 @@
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/string/strchr.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/string/strchr.c \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/string.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/sys/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/types.h
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/string.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/sys/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/types.h:

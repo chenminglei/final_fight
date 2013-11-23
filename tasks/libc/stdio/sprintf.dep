@@ -1,0 +1,17 @@
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/sprintf.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/sprintf.c \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdio.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdarg.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/sys/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/doprnt.h
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdio.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdarg.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/sys/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/doprnt.h:

@@ -1,0 +1,23 @@
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/printf.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/printf.c \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdio.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdarg.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/sys/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/unistd.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/fileno.h \
+  /home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/doprnt.h
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdio.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/stdarg.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/sys/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/unistd.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/include/bits/fileno.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/tasks/libc/stdio/doprnt.h:

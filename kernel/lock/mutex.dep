@@ -1,0 +1,29 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/lock/mutex.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/lock/mutex.c \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/lock.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/sched.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/errno.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/psr.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/inline.h \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/exception.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/lock.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/types.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/task.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/sched.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/bits/errno.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/psr.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/inline.h:
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/arm/exception.h:

@@ -1,0 +1,5 @@
+/home/chinalidi/Desktop/lab4/final_fight/kernel/arm/userSetup.o:  \
+ /home/chinalidi/Desktop/lab4/final_fight/kernel/arm/userSetup.S \
+  /home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h
+
+/home/chinalidi/Desktop/lab4/final_fight/kernel/include/config.h:
