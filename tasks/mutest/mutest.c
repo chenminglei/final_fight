@@ -11,11 +11,7 @@
 #include <task.h>
 #include <unistd.h>
 #include <syscall.h>
-
-#include <stdio.h>
-#include <task.h>
-#include <unistd.h>
-#include <syscall.h>
+#include <lock.h>
 
 unsigned int sum = 0;
 size_t mutext_num = 0;
@@ -27,7 +23,7 @@ void panic(const char* str) {
 	while (1);
 }
 
-void fun1(void* str) {
+void fun1() {
         while (1) {
 		if (mutex_lock(mutext_num) == 0) {
 			++sum;
@@ -41,7 +37,7 @@ void fun1(void* str) {
 	}
 }
 
-void fun2(void* str) {
+void fun2() {
 	while (1) {
 		if (mutex_lock(mutext_num) == 0) {
 			++sum;
