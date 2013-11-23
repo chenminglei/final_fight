@@ -85,6 +85,7 @@ int mutex_lock(int mutex __attribute__((unused))) {
 
 		add_sleep_queue((mutex_t*)&gtMutex[mutex], cur_tcb);
 		dispatch_sleep();
+		enable_interrupts();
 		return 0;
 	}
 }
@@ -99,7 +100,6 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 		return -EINVAL;
 	}
 
-	//mutex_tmp = gtMutex[mutex];
 	if (gtMutex[mutex].bAvailable == FALSE) {
 		enable_interrupts();
 		return -EINVAL;
@@ -113,14 +113,13 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 		if (gtMutex[mutex].pSleep_queue == NULL) {
 			gtMutex[mutex].pHolding_Tcb = NULL;
 			gtMutex[mutex].bLock = FALSE;
-			//gtMutex[mutex].pSleep_queue = NULL;
 		} else {
 			gtMutex[mutex].pHolding_Tcb = gtMutex[mutex].pSleep_queue;
-			//cur_tcb->sleep_queue = NULL;
 			gtMutex[mutex].bLock = TRUE;
 			gtMutex[mutex].pSleep_queue = gtMutex[mutex].pHolding_Tcb->sleep_queue;
 			runqueue_add(gtMutex[mutex].pHolding_Tcb,
 					gtMutex[mutex].pHolding_Tcb->cur_prio);
+			gtMutex[mutex].pHolding_Tcb->sleep_queue = NULL;
 		}
 		enable_interrupts();
 		return 0;
@@ -129,10 +128,10 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 
 void add_sleep_queue(mutex_t* mutex_tmp, tcb_t * tcb_tmp) {
 	tcb_t * tcb_sleep;
-	if (mutex_tmp -> pSleep_queue == NULL)
-		mutex_tmp -> pSleep_queue = tcb_tmp;
+	if (mutex_tmp->pSleep_queue == NULL)
+		mutex_tmp->pSleep_queue = tcb_tmp;
 	else {
-		tcb_sleep = mutex_tmp -> pSleep_queue;
+		tcb_sleep = mutex_tmp->pSleep_queue;
 		while (tcb_sleep->sleep_queue != NULL) {
 			tcb_sleep = tcb_sleep->sleep_queue;
 		}
