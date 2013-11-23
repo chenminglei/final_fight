@@ -79,15 +79,13 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
 {
-        printf("runqueue_add: %u\n", highest_prio());
-        printf("runqueue_add prio: %u\n", prio);
+        //printf("runqueue_add prio: %u\n", prio);
 	tcb->cur_prio = prio;	
 	uint8_t y = (prio >> 3);
 	uint8_t x = prio & 0x07;
 	run_list[prio] = tcb;
 	group_run_bits = group_run_bits | (1 << y);
 	run_bits[y] = run_bits[y] | (1 << x); 	
-        printf("runqueue_add: %u\n", highest_prio());
 }
 
 
@@ -100,15 +98,13 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
-        printf("runqueue_remove: %u\n", highest_prio());
-        printf("runqueue_remove prio: %u\n", prio);
+        //printf("runqueue_remove prio: %u\n", prio);
 	uint8_t y = prio >> 3;
 	uint8_t x = prio & 0x07;
 	tcb_t* task = run_list[prio];
 	run_list[prio] = NULL;
 	run_bits[y] = run_bits[y] & (~(1 << x));
 	if (run_bits[y] == 0) group_run_bits = group_run_bits & (~(1 << y));
-        printf("runqueue_remove: %u\n", highest_prio());
 	return task;
 }
 
