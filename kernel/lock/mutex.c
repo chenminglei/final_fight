@@ -23,23 +23,20 @@
 
 mutex_t gtMutex[OS_NUM_MUTEX];
 volatile int cur_num_mutex = 0;
-void add_sleep_queue(mutex_t mutex_tmp, tcb_t * tcb_tmp);
+void add_sleep_queue(mutex_t* mutex_tmp, tcb_t * tcb_tmp);
 
 void mutex_init() {
-	mutex_t mutex_tmp;
 	int i = 0;
 	for (i = 0; i < OS_NUM_MUTEX; i++) {
-		mutex_tmp = gtMutex[i];
-		mutex_tmp.bAvailable = FALSE;
-		mutex_tmp.bLock = FALSE;
-		mutex_tmp.pHolding_Tcb = NULL;
-		mutex_tmp.pSleep_queue = NULL;
+		gtMutex[i].bAvailable = FALSE;
+		gtMutex[i].bLock = FALSE;
+		gtMutex[i].pHolding_Tcb = NULL;
+		gtMutex[i].pSleep_queue = NULL;
 	}
 }
 
 int mutex_create(void) {
 	int i = 0;
-	mutex_t mutex_tmp;
 
 	disable_interrupts();
 
@@ -48,9 +45,8 @@ int mutex_create(void) {
 		return -ENOMEM;
 	} else {
 		for (; i < OS_NUM_MUTEX; i++) {
-			mutex_tmp = gtMutex[i];
-			if (!mutex_tmp.bAvailable) {
-				mutex_tmp.bAvailable = TRUE;
+			if (!gtMutex[i].bAvailable) {
+				gtMutex[i].bAvailable = TRUE;
 				break;
 			}
 		}
@@ -61,7 +57,6 @@ int mutex_create(void) {
 }
 
 int mutex_lock(int mutex __attribute__((unused))) {
-	mutex_t mutex_tmp;
 	tcb_t * cur_tcb;
 
 	disable_interrupts();
@@ -71,30 +66,29 @@ int mutex_lock(int mutex __attribute__((unused))) {
 		return -EINVAL;
 	}
 
-	mutex_tmp = gtMutex[mutex];
-	if (mutex_tmp.bAvailable == FALSE) {
+	if (gtMutex[mutex].bAvailable == FALSE) {
 		enable_interrupts();
 		return -EINVAL;
 	}
 
 	cur_tcb = get_cur_tcb();
-	if (cur_tcb == mutex_tmp.pHolding_Tcb) {
+	if (cur_tcb == gtMutex[mutex].pHolding_Tcb) {
 		enable_interrupts();
 		return -EDEADLOCK;
-	} else if (mutex_tmp.bLock == FALSE) {
-		mutex_tmp.bLock = TRUE;
-		mutex_tmp.pHolding_Tcb = cur_tcb;
+	} else if (gtMutex[mutex].bLock == FALSE) {
+		gtMutex[mutex].bLock = TRUE;
+		gtMutex[mutex].pHolding_Tcb = cur_tcb;
 		enable_interrupts();
 		return 0;
 	} else {
-		add_sleep_queue(mutex_tmp, cur_tcb);
+
+		add_sleep_queue((mutex_t*)&gtMutex[mutex], cur_tcb);
 		dispatch_sleep();
 		return 0;
 	}
 }
 
 int mutex_unlock(int mutex __attribute__((unused))) {
-	mutex_t mutex_tmp;
 	tcb_t * cur_tcb;
 
 	disable_interrupts();
@@ -104,40 +98,40 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 		return -EINVAL;
 	}
 
-	mutex_tmp = gtMutex[mutex];
-	if (mutex_tmp.bAvailable == FALSE) {
+	//mutex_tmp = gtMutex[mutex];
+	if (gtMutex[mutex].bAvailable == FALSE) {
 		enable_interrupts();
 		return -EINVAL;
 	}
 
 	cur_tcb = get_cur_tcb();
-	if (cur_tcb != mutex_tmp.pHolding_Tcb) {
+	if (cur_tcb != gtMutex[mutex].pHolding_Tcb) {
 		enable_interrupts();
 		return -EPERM;
 	} else {
-		if (cur_tcb->sleep_queue == NULL) {
-			mutex_tmp.pHolding_Tcb = NULL;
-			mutex_tmp.bLock = FALSE;
-			mutex_tmp.pSleep_queue = NULL;
+		if (gtMutex[mutex].pSleep_queue == NULL) {
+			gtMutex[mutex].pHolding_Tcb = NULL;
+			gtMutex[mutex].bLock = FALSE;
+			//gtMutex[mutex].pSleep_queue = NULL;
 		} else {
-			mutex_tmp.pHolding_Tcb = cur_tcb->sleep_queue;
-			cur_tcb->sleep_queue = NULL;
-			mutex_tmp.bLock = TRUE;
-			mutex_tmp.pSleep_queue = mutex_tmp.pHolding_Tcb->sleep_queue;
-			runqueue_add(mutex_tmp.pHolding_Tcb,
-					mutex_tmp.pHolding_Tcb->cur_prio);
+			gtMutex[mutex].pHolding_Tcb = gtMutex[mutex].pSleep_queue;
+			//cur_tcb->sleep_queue = NULL;
+			gtMutex[mutex].bLock = TRUE;
+			gtMutex[mutex].pSleep_queue = gtMutex[mutex].pHolding_Tcb->sleep_queue;
+			runqueue_add(gtMutex[mutex].pHolding_Tcb,
+					gtMutex[mutex].pHolding_Tcb->cur_prio);
 		}
 		enable_interrupts();
 		return 0;
 	}
 }
 
-void add_sleep_queue(mutex_t mutex_tmp, tcb_t * tcb_tmp) {
+void add_sleep_queue(mutex_t* mutex_tmp, tcb_t * tcb_tmp) {
 	tcb_t * tcb_sleep;
-	if (mutex_tmp.pSleep_queue == NULL)
-		mutex_tmp.pSleep_queue = tcb_tmp;
+	if (mutex_tmp -> pSleep_queue == NULL)
+		mutex_tmp -> pSleep_queue = tcb_tmp;
 	else {
-		tcb_sleep = mutex_tmp.pSleep_queue;
+		tcb_sleep = mutex_tmp -> pSleep_queue;
 		while (tcb_sleep->sleep_queue != NULL) {
 			tcb_sleep = tcb_sleep->sleep_queue;
 		}
