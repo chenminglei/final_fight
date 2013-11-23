@@ -27,13 +27,13 @@ void fun1() {
         while (1) {
 		if (mutex_lock(mutext_num) == 0) {
 			++sum;
+                        index1++;
 			if (event_wait(0) < 0) {
 				panic("Dev 0 failed");
 			}
+	                printf("Index1: %u, Index2: %u, Sum: %u\n", index1, index2, sum);
 			mutex_unlock(mutext_num);
 		}
-                index1++;
-	        printf("Index1: %u, Index2: %u, Sum: %u\n", index1, index2, sum);
 	}
 }
 
@@ -41,13 +41,12 @@ void fun2() {
 	while (1) {
 		if (mutex_lock(mutext_num) == 0) {
 			++sum;
+                        index2++;
 			if (event_wait(1) < 0) {
 				panic("Dev 1 failed");
 			}
 			mutex_unlock(mutext_num);
 		}
-                index2++;
-                printf("Index1: %u, Index2: %u, Sum: %u\n", index1, index2, sum);
 	}
 }
 
