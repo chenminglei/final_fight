@@ -1,11 +1,11 @@
 /** @file main.c
+ *  
+ *  @brief kernel main
  *
- * @brief kernel main
- *
- * @author 
- *	   
- *	   
- * @date   
+ *  @author: Di Li<dil1@andrew.cmu.edu>
+ *           Minglei Chen<mingleic@andrew.cmu.edu>
+ *           Zhe Shen<zshen@andrew.cmu.edu>
+ *  @date: Nov 24th  2013
  */
 
 #include <main.h>
@@ -24,7 +24,6 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     app_startup();
     global_data = table;
 
-    printf("in kmain\n");
 
     /*install SWI and IRQ handler */
     if (installHandler((unsigned int *)VEC_SWI, (unsigned int)S_Handler) < 0) {
@@ -37,26 +36,20 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     }
 
 
-    printf("in init\n");
     /*set up the interrupt controller*/
     init_interrupt();
 
-    printf("in time\n");
     /*set up the time registers */
     timeSetup();
 
-   
-    printf("in device\n");
     /*set up the devices */
     dev_init();
 
 
-    printf("in mutex\n");
     /*set up the mutex */
     mutex_init();
 
 
-    printf("in user\n");
     /* Set up user program */
     userSetup();
 

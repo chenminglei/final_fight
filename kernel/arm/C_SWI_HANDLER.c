@@ -1,6 +1,11 @@
-/*  author: Di Li<dil1@andrew.cmu.edu>
- *          Minglei Chen<mingleic@andrew.cmu.edu>
- *          Zhe Shen<zshen@andrew.cmu.edu>
+/** @file C_SWI_HANDLER.c 
+ *  
+ *  @brief This is the C SWI Handler, handling different system calls.
+ *
+ *  @author: Di Li<dil1@andrew.cmu.edu>
+ *           Minglei Chen<mingleic@andrew.cmu.edu>
+ *           Zhe Shen<zshen@andrew.cmu.edu>
+ *  @date: Nov 24th  2013
  */
 
 #include "main.h"

@@ -66,10 +66,16 @@ void dev_init(void)
 void dev_wait(unsigned int dev __attribute__((unused)))
 {
     disable_interrupts();
+
     tcb_t* cur_tcb = get_cur_tcb();
+
+    /* Insert the current one into the device sleep queue */    
     cur_tcb->sleep_queue = devices[dev].sleep_queue;
+
     devices[dev].sleep_queue = cur_tcb;
+
     dispatch_sleep();
+
     enable_interrupts();
 }
 
@@ -90,8 +96,10 @@ void dev_update(unsigned long millis __attribute__((unused)))
 
     disable_interrupts();
 
+    /* find the devices that should be called up */
     for ( i = 0; i < NUM_DEVICES; i++) {
         if (devices[i].next_match <= millis) {
+            /* Put all tasks in the sleep queue into runqueue */
             sleep_tcb = devices[i].sleep_queue;
             devices[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
@@ -101,6 +109,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
                 sleep_tcb->sleep_queue = NULL;
                 sleep_tcb = next_tcb; 
             }
+            /* update device next match */
             devices[i].next_match = millis + dev_freq[i];
         }
     }

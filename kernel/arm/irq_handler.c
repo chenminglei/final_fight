@@ -1,3 +1,14 @@
+/** @file irq_handler.c 
+ *  
+ *  @brief This is the irq handler, update the global time,
+ *   and call device update
+ *
+ *  @author: Di Li<dil1@andrew.cmu.edu>
+ *           Minglei Chen<mingleic@andrew.cmu.edu>
+ *           Zhe Shen<zshen@andrew.cmu.edu>
+ *  @date: Nov 24th  2014
+ */
+
 #include <arm/reg.h>
 #include <arm/timer.h>
 #include <exports.h>

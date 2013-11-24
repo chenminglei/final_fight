@@ -1,13 +1,11 @@
 /*                                                                              
- * timeSetup.c: Time driver to set the interrupt controller and 
- * OS timer register                                       
+ * timeSetup.c: Time driver to set the OS timer register                                       
  *                                                                              
  * Authors: Di Li <dil1@andrew.cmu.edu>                                      
  *          Zhe Shen <zshen@andrew.cmu.edu>
  *          Minglei Chen <mingleic@andrew.cmu.edu>                                      
- * Date:    7:47 PM  Nov 3rd 2013                                             
+ * Date:    7:47 PM  Nov 24th 2013                                             
  */ 
-
 
 
 #include <arm/reg.h>

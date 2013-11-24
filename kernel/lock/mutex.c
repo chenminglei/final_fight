@@ -1,12 +1,12 @@
-/**
- * @file mutex.c
+/** @file mutex.c 
+ *  
+ *  @brief Implements mutices
  *
- * @brief Implements mutices.
- *
- * @author Harry Q Bovik < PUT YOUR NAMES HERE
- *
- * 
- * @date  
+ *  @author: Harry Q Bovik
+ *           Di Li<dil1@andrew.cmu.edu>
+ *           Minglei Chen<mingleic@andrew.cmu.edu>
+ *           Zhe Shen<zshen@andrew.cmu.edu>
+ *  @date: Nov 24th  2013
  */
 
 //#define DEBUG_MUTEX
@@ -26,6 +26,10 @@ mutex_t gtMutex[OS_NUM_MUTEX];
 volatile int cur_num_mutex = 0;
 void add_sleep_queue(mutex_t* mutex_tmp, tcb_t * tcb_tmp);
 
+/**
+ * @brief initialize the array of mutex, gtMutex
+ *
+ */
 void mutex_init() {
 	int i = 0;
 	for (i = 0; i < OS_NUM_MUTEX; i++) {
@@ -36,6 +40,10 @@ void mutex_init() {
 	}
 }
 
+/**
+ * @brief create a mutex
+ *
+ */
 int mutex_create(void) {
 	int i = 0;
 
@@ -45,6 +53,7 @@ int mutex_create(void) {
 		enable_interrupts();
 		return -ENOMEM;
 	} else {
+                /* find the first one that has not been created */
 		for (; i < OS_NUM_MUTEX; i++) {
 			if (!gtMutex[i].bAvailable) {
 				gtMutex[i].bAvailable = TRUE;
@@ -57,32 +66,41 @@ int mutex_create(void) {
 	}
 }
 
+/**
+ * @brief lock the mutex 
+ *
+ * @param mutex  the index of the mutex in the mutex array
+ */
 int mutex_lock(int mutex __attribute__((unused))) {
 	tcb_t * cur_tcb;
 
 	disable_interrupts();
 
+        /* Check whether the mutex value is invalid or not */
 	if (mutex < 0 || mutex >= OS_NUM_MUTEX) {
 		enable_interrupts();
 		return -EINVAL;
 	}
-
+ 
+        /* Check whether this mutex has been created or not */
 	if (gtMutex[mutex].bAvailable == FALSE) {
 		enable_interrupts();
 		return -EINVAL;
 	}
 
 	cur_tcb = get_cur_tcb();
+        /* Check whether the current tcb is holding the mutex */
 	if (cur_tcb == gtMutex[mutex].pHolding_Tcb) {
 		enable_interrupts();
 		return -EDEADLOCK;
 	} else if (gtMutex[mutex].bLock == FALSE) {
+                /* acquire the mutex */
 		gtMutex[mutex].bLock = TRUE;
 		gtMutex[mutex].pHolding_Tcb = cur_tcb;
 		enable_interrupts();
 		return 0;
 	} else {
-
+                /* Add the one to the sleep queue of the mutex and sleep */
 		add_sleep_queue((mutex_t*)&gtMutex[mutex], cur_tcb);
 		dispatch_sleep();
 		enable_interrupts();
@@ -90,22 +108,30 @@ int mutex_lock(int mutex __attribute__((unused))) {
 	}
 }
 
+/**
+ * @brief unlock the mutex 
+ *
+ * @param mutex  the index of the mutex in the mutex array
+ */
 int mutex_unlock(int mutex __attribute__((unused))) {
 	tcb_t * cur_tcb;
 
 	disable_interrupts();
 
+        /* Check whether the mutex value is invalid or not */
 	if (mutex < 0 || mutex >= OS_NUM_MUTEX) {
 		enable_interrupts();
 		return -EINVAL;
 	}
 
+        /* Check whether this mutex has been created or not */
 	if (gtMutex[mutex].bAvailable == FALSE) {
 		enable_interrupts();
 		return -EINVAL;
 	}
 
 	cur_tcb = get_cur_tcb();
+        /* Check whether the current tcb is holding the mutex */
 	if (cur_tcb != gtMutex[mutex].pHolding_Tcb) {
 		enable_interrupts();
 		return -EPERM;
@@ -114,6 +140,9 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 			gtMutex[mutex].pHolding_Tcb = NULL;
 			gtMutex[mutex].bLock = FALSE;
 		} else {
+                        /* release the mutex to the first one in the sleep queue and 
+                         * put that one into the run queue
+                         */
 			gtMutex[mutex].pHolding_Tcb = gtMutex[mutex].pSleep_queue;
 			gtMutex[mutex].bLock = TRUE;
 			gtMutex[mutex].pSleep_queue = gtMutex[mutex].pHolding_Tcb->sleep_queue;
@@ -126,6 +155,12 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 	}
 }
 
+/**
+ * @brief Puts a task to sleep on the sleep queue for a mutex
+ *
+ * @param dev  mutex_tmp  the mutex
+ *             tcb_tmp    tcp that should be put in the sleep queue
+ */
 void add_sleep_queue(mutex_t* mutex_tmp, tcb_t * tcb_tmp) {
 	tcb_t * tcb_sleep;
 	if (mutex_tmp->pSleep_queue == NULL)
