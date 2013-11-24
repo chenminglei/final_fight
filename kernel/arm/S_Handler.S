@@ -10,6 +10,8 @@
         .global S_Handler                                         
         .extern global_data
         .extern C_SWI_HANDLER                                     
+
+#include <constant.h>
            
                                                        
 S_Handler:                                                                     
@@ -20,7 +22,7 @@ S_Handler:
         ADD    sp, sp, #-12
  
         MRS    r2, cpsr               @ enable irq
-        BIC    r2, r2, #0x80
+        BIC    r2, r2, #IRQ_BIT
         MSR    cpsr, r2        
 
         @MRS    r2, spsr              @ store spsr into stack  
@@ -30,7 +32,7 @@ S_Handler:
                                   
         ADD    r1, sp, #12            @ make current sp as the second parameter
         LDR    r0, [lr, #-4]          @ get the swi code number
-        BIC    r0, r0, #0xff000000                                 
+        BIC    r0, r0, #SWI_CODE_GET                                 
         LDR    r2, =global_data
         LDR    r8, [r2]
 
