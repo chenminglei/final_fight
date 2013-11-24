@@ -41,11 +41,11 @@ S_Handler:
         @ADD    sp, sp, #4                                      
 
 
-        LDMFD  sp, {r0, sp, lr}^
+        LDMFD  sp, {r1, sp, lr}^
         ADD    sp, sp, #12
-        MSR    spsr, r0
+        MSR    spsr, r1
 
-
-        LDMFD  sp!, {r0-r12, lr}      @ restore registers except r0
+        ADD    sp, sp, #4
+        LDMFD  sp!, {r1-r12, lr}      @ restore registers except r0
         MOVS   pc, lr                 @ go back to user program    
 

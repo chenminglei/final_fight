@@ -47,9 +47,6 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
     printf("task_create3\n");
 
-//    mutex_init();
-//    printf("mutex_init\n");
-
     allocate_tasks(&tasks, num_tasks);
 
     printf("allocate_tasks\n");
