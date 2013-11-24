@@ -24,6 +24,7 @@ static void __attribute__((unused)) idle(void);
 
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
+    /*assign the idle task and add to run queue */
     system_tcb[IDLE_PRIO].native_prio = IDLE_PRIO;
     system_tcb[IDLE_PRIO].cur_prio = IDLE_PRIO;
     system_tcb[IDLE_PRIO].context.lr = launch_task;
@@ -35,7 +36,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
  
     runqueue_add(&system_tcb[IDLE_PRIO], (uint8_t)IDLE_PRIO);
-    //dispatch_init(&system_tcb[IDLE_PRIO]);
+    /*context switch */
     dispatch_nosave();
 }
 
@@ -67,6 +68,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     uint8_t i = 0;
     uint8_t k = 0;
     task_t tmp;
+    /*rank the tasks according to T */
     for (i = 0 ;i < num_tasks ;i++) {
         for ( k = num_tasks - 1; k >= i + 1; k --) {
             if ((*tasks)[k].T < (*tasks)[k - 1].T) {
@@ -76,9 +78,9 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
             }
         }
     }
-
+    /*initiate the run queue */
     runqueue_init();
-
+    /*assign the tasks to tcbs one by one and add to the run queue*/
     for (i = 0; i < num_tasks; i++) {
         system_tcb[i+1].native_prio = i+1;
         system_tcb[i+1].cur_prio = i+1;

@@ -41,12 +41,12 @@ FUNC(launch_task)
 /* r0 points to the target context, r1 to the current context. */
 /* add your code to perform a full context switch */
 FUNC(ctx_switch_full)
-        add   r1, r1, #40
-	stmfd r1!, {r4-r11,sp,lr}
-	ldmfd r0, {r4-r11,sp,lr}
+        add   r1, r1, #40          @modify stack place
+	stmfd r1!, {r4-r11,sp,lr}  @store the old registers
+	ldmfd r0, {r4-r11,sp,lr}   @load the new registers
 	mov pc, lr
 
 /*add your code to perform a half context switch */	
 FUNC(ctx_switch_half)
-	ldmfd r0, {r4-r11,sp,lr}
+	ldmfd r0, {r4-r11,sp,lr}   @load the new registers
         mov pc, lr

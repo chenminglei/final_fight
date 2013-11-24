@@ -59,6 +59,7 @@ static uint8_t prio_unmap_table[]  __attribute__((unused)) =
  */
 void runqueue_init(void)
 {
+    /*set run_bits and run_list to zero */
     int i = 0;
     for(i = 0; i < OS_MAX_TASKS/8; i++) {
 	run_bits[i] = 0;	
@@ -79,7 +80,7 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
 {
-        //printf("runqueue_add prio: %u\n", prio);
+        /*modify run_list and group_run_bits according to priority */
 	tcb->cur_prio = prio;	
 	uint8_t y = (prio >> 3);
 	uint8_t x = prio & LEFT_THREE_BITS;
@@ -98,7 +99,7 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
-        //printf("runqueue_remove prio: %u\n", prio);
+        /*clear bits according to priority */
 	uint8_t y = prio >> 3;
 	uint8_t x = prio & LEFT_THREE_BITS;
 	tcb_t* task = run_list[prio];
@@ -114,6 +115,7 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
  */
 uint8_t highest_prio(void)
 {
+        /*get the highest priority according to priority map */
  	uint8_t x = 0;
 	uint8_t y = 0;
 	y = prio_unmap_table[group_run_bits];

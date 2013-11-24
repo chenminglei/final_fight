@@ -31,7 +31,7 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
  */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
-    //printf("dispatch_init\n");
+    /*initiate the cureent TCB to idle and modify priority*/
     cur_tcb = idle;
     runqueue_remove(idle->cur_prio);
     ctx_switch_half(&(idle->context));
@@ -48,13 +48,14 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-    //printf("dispatch_save 1\n");
+    /*if current TCB has higher priority, return directly */
     if(cur_tcb->cur_prio < highest_prio())
 	return;
     runqueue_add(cur_tcb, cur_tcb->cur_prio);
     tcb_t *next_tcb = runqueue_remove(highest_prio());
     tcb_t* old_tcb = cur_tcb;
     cur_tcb = next_tcb;
+    /*context switch to new tcb */
     ctx_switch_full(&(cur_tcb->context), &(old_tcb->context));
 }
 
@@ -66,9 +67,10 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
-    //printf("dispatch_nosave\n");
+    /*switch to the new task */
     tcb_t * next_tcb = runqueue_remove(highest_prio());
     cur_tcb = next_tcb;
+    /*context switch without saving current state */
     ctx_switch_half(&(next_tcb->context));
 }
 
@@ -81,6 +83,7 @@ void dispatch_nosave(void)
  */
 void dispatch_sleep(void)
 {
+    /*context switch to the new task but not adding current tcb to run queue */
     tcb_t * next_tcb = runqueue_remove(highest_prio());
     tcb_t * old_tcb = cur_tcb;
     cur_tcb = next_tcb;
@@ -92,6 +95,7 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
+    /*get the current tcb's priority */
     return cur_tcb->cur_prio;
 }
 
@@ -100,5 +104,6 @@ uint8_t get_cur_prio(void)
  */
 tcb_t* get_cur_tcb(void)
 {
+    /*get the current tcb */
     return cur_tcb;
 }
