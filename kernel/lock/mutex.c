@@ -9,7 +9,7 @@
  * @date  
  */
 
-#define DEBUG_MUTEX
+//#define DEBUG_MUTEX
 
 #include <lock.h>
 #include <task.h>

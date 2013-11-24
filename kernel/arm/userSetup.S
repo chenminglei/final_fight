@@ -6,6 +6,7 @@
 @ Date:   Oct 18th 2013
 
 #include <config.h>
+#include <constant.h>
 
         .file   "userSetup.S"
         .text
@@ -15,7 +16,7 @@
 userSetup:
         MRS  r2, cpsr            @ switch to user mode and mask IRQs and FIQs
         BIC  r2, r2, #0xff       
-        ORR  r2, r2, #0x50       
+        ORR  r2, r2, #FIQ_BIT       
         MSR  cpsr, r2
 
         MOV  sp, #USR_STACK    @ set stack top at 0xa3000000

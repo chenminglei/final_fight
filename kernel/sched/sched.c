@@ -28,7 +28,6 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     system_tcb[IDLE_PRIO].cur_prio = IDLE_PRIO;
     system_tcb[IDLE_PRIO].context.lr = launch_task;
     system_tcb[IDLE_PRIO].context.sp = system_tcb[IDLE_PRIO].kstack_high;
-    //printf("idle address 1: %x\n", (uint32_t)idle);
     system_tcb[IDLE_PRIO].context.r4 = (uint32_t)idle;
     system_tcb[IDLE_PRIO].context.r5 = (uint32_t)NULL;
     system_tcb[IDLE_PRIO].context.r6 = (uint32_t)NULL;
@@ -36,7 +35,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     system_tcb[IDLE_PRIO].sleep_queue = NULL;
  
     runqueue_add(&system_tcb[IDLE_PRIO], (uint8_t)IDLE_PRIO);
-   // dispatch_init(&system_tcb[IDLE_PRIO]);
+    //dispatch_init(&system_tcb[IDLE_PRIO]);
     dispatch_nosave();
 }
 

@@ -14,7 +14,7 @@
 #include "sched_i.h"
 #include <exports.h>
 
-
+#define LEFT_THREE_BITS  0x07
 
 static tcb_t* run_list[OS_MAX_TASKS]  __attribute__((unused));
 
@@ -82,7 +82,7 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
         //printf("runqueue_add prio: %u\n", prio);
 	tcb->cur_prio = prio;	
 	uint8_t y = (prio >> 3);
-	uint8_t x = prio & 0x07;
+	uint8_t x = prio & LEFT_THREE_BITS;
 	run_list[prio] = tcb;
 	group_run_bits = group_run_bits | (1 << y);
 	run_bits[y] = run_bits[y] | (1 << x); 	
@@ -100,7 +100,7 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
         //printf("runqueue_remove prio: %u\n", prio);
 	uint8_t y = prio >> 3;
-	uint8_t x = prio & 0x07;
+	uint8_t x = prio & LEFT_THREE_BITS;
 	tcb_t* task = run_list[prio];
 	run_list[prio] = NULL;
 	run_bits[y] = run_bits[y] & (~(1 << x));

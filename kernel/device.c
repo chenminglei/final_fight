@@ -69,7 +69,6 @@ void dev_wait(unsigned int dev __attribute__((unused)))
     tcb_t* cur_tcb = get_cur_tcb();
     cur_tcb->sleep_queue = devices[dev].sleep_queue;
     devices[dev].sleep_queue = cur_tcb;
-    //printf("dev_wait  priority  %u   %u\n", cur_tcb->cur_prio, cur_tcb->native_prio);
     dispatch_sleep();
     enable_interrupts();
 }
@@ -97,7 +96,6 @@ void dev_update(unsigned long millis __attribute__((unused)))
             devices[i].sleep_queue = NULL;
             while (sleep_tcb != NULL) {
                 add = 1;
-                //printf("dev_update  priority 2 %u %u\n", sleep_tcb->cur_prio, sleep_tcb->native_prio);
                 runqueue_add(sleep_tcb, sleep_tcb->cur_prio);
                 next_tcb = sleep_tcb->sleep_queue;
                 sleep_tcb->sleep_queue = NULL;
