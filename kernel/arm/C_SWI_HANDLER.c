@@ -65,6 +65,7 @@ unsigned long C_SWI_HANDLER(unsigned swi_num, void* regs) {
 		break;
 	case EVENT_WAIT:
 		num = (unsigned int) (*(int*)regs);
+                printf("c swi handler num: %u\n", num);
 		result = event_wait(num);
 		break;
 	default:
