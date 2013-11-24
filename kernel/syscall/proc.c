@@ -23,39 +23,36 @@
 #include <arm/physmem.h>
 #include <device.h>
 
+
+volatile int task_is_created = 0;
+
+
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
     disable_interrupts();
-    printf("task_create1\n");
-    int a = 0;
-
-
-    printf("task lambda's r4: %x\n", (uint32_t)(tasks[0].lambda));
-    printf("task lambda's r4: %x\n", (uint32_t)(tasks[1].lambda));
-
       
     if(num_tasks >= OS_AVAIL_TASKS) {
         enable_interrupts();
 	return -EINVAL;
     }
 
-    printf("task_create2\n");
     if(valid_addr(tasks, sizeof(task_t) * num_tasks, USR_START_ADDR, USR_END_ADDR) == 0) {
         enable_interrupts();
 	return -EFAULT;
     }
 
-    printf("task_create3\n");
+    if (task_is_created) {
+        dev_init();
+        mutex_init();
+    }
+    else
+        task_is_created = 1;
 
     allocate_tasks(&tasks, num_tasks);
 
-    printf("allocate_tasks\n");
-
     sched_init(NULL);
-
-    printf("sched_init\n");
     
-    while (a == 0) {}
+    while (1) {}
 
     return 1;
 }
