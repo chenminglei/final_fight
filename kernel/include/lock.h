@@ -11,11 +11,11 @@
  * @date   Sat, 06 Dec 2008 05:15:00 -0400
  */
 
-#include <types.h>
-#include <task.h>
-
 #ifndef _LOCK_H_
 #define _LOCK_H_
+
+#include <types.h>
+#include <task.h>
 
 struct mutex
 {

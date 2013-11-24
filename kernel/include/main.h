@@ -6,6 +6,9 @@
  *         Minglei Chen <mingleic@andrew.cmu.edu>
  * Date:   Oct 18th
  */
+#ifndef _MAIN_H_
+#define _MAIN_H_
+
 #define STDIN 0
 #define STDOUT 1
 
@@ -36,3 +39,5 @@ void IRQ_Handler();
 void irq_wrapper();
 
 void init_interrupt();
+
+#endif

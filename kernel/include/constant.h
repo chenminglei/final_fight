@@ -5,6 +5,9 @@
  * Date:    7:47 PM  Nov 3th 2013                                             
  */ 
 
+#ifndef _CONSTANT_H_
+#define _CONSTANT_H_
+
 #define VEC_SWI   0x08
 #define VEC_IRQ   0x18
 #define VEC_ADD   0x08
@@ -22,4 +25,6 @@
 #define OSCR_CLEAR  0x00
 
 #define TIME_RESOLUTION 10
+
+#endif
 
