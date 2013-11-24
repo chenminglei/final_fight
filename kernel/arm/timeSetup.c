@@ -13,7 +13,6 @@
 #include <arm/reg.h>
 #include <arm/timer.h>
 #include <arm/interrupt.h>
-#include <exports.h>
 #include "constant.h"
 
 
