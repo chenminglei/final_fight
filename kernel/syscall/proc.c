@@ -30,7 +30,7 @@ volatile int task_is_created = 0;
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
     disable_interrupts();
-      
+    size_t i = 0;  
     if(num_tasks >= OS_AVAIL_TASKS) {
         enable_interrupts();
 	return -EINVAL;
@@ -40,7 +40,12 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         enable_interrupts();
 	return -EFAULT;
     }
-
+    for(;i < num_tasks;i ++) {
+	if(tasks[i].C > tasks[i].T) {
+	    enable_interrupts();
+	    return -ESCHED;
+	}
+    }
     if (task_is_created) {
         dev_init();
         mutex_init();
