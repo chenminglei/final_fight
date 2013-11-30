@@ -97,7 +97,11 @@ int mutex_lock(int mutex __attribute__((unused))) {
                 /* acquire the mutex */
 		gtMutex[mutex].bLock = TRUE;
 		gtMutex[mutex].pHolding_Tcb = cur_tcb;
-		enable_interrupts();
+                /* change the priority of the task and number of locks holded */
+                cur_tcb->cur_prio = 0;
+                cur_tcb->holds_lock++;
+		
+                enable_interrupts();
 		return 0;
 	} else {
                 /* Add the one to the sleep queue of the mutex and sleep */
@@ -150,6 +154,11 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 					gtMutex[mutex].pHolding_Tcb->cur_prio);
 			gtMutex[mutex].pHolding_Tcb->sleep_queue = NULL;
 		}
+                /* update the number of locks holded, and the cur priority */ 
+                cur_tcb->holds_lock--;
+                if (cur_tcb->holds_lock == 0)
+                    cur_tcb->cur_prio = cur_tcb->native_prio;
+
 		enable_interrupts();
 		return 0;
 	}
@@ -158,8 +167,8 @@ int mutex_unlock(int mutex __attribute__((unused))) {
 /**
  * @brief Puts a task to sleep on the sleep queue for a mutex
  *
- * @param dev  mutex_tmp  the mutex
- *             tcb_tmp    tcp that should be put in the sleep queue
+ * @param  mutex_tmp  the mutex
+ *         tcb_tmp    tcp that should be put in the sleep queue
  */
 void add_sleep_queue(mutex_t* mutex_tmp, tcb_t * tcb_tmp) {
 	tcb_t * tcb_sleep;

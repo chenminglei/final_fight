@@ -82,9 +82,14 @@ int event_wait(unsigned int dev __attribute__((unused))) {
 	// check error
 	if (dev >= NUM_DEVICES)
 		return -EINVAL;
-	// call device wait
-	dev_wait(dev);
 
+        /* check whether the task holds locks */
+        tcb_t* cur_tcb = get_cur_tcb();
+        if (cur_tcb->holds_lock >= 1) {
+            return -EHOLDSLOCK;
+        }
+
+	dev_wait(dev);
 	return 0;
 }
 
@@ -94,6 +99,5 @@ void invalid_syscall(unsigned int call_num __attribute__((unused))) {
 
 	disable_interrupts();
 
-	while (1)
-		;
+	while (1);
 }

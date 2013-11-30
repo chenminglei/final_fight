@@ -39,6 +39,8 @@
 #define ERANGE        34    /* Math result not representable */
 #define EDEADLOCK     58    /* File locking deadlock error */
 
+#define EHOLDSLOCK    60    /* Calls dev_wait while holding a lock */
+
 #define ESCHED       100    /* Unable to schedule */
 
 #endif /* BITS_ERRNO_H */
