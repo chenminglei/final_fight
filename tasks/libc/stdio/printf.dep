@@ -1,0 +1,23 @@
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/stdio/printf.o:  \
+ /home/chenzhuokb2/Desktop/lab4/tasks/libc/stdio/printf.c \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdio.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdarg.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/sys/types.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/types.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/unistd.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/fileno.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/stdio/doprnt.h
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdio.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdarg.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/sys/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/unistd.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/fileno.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/stdio/doprnt.h:

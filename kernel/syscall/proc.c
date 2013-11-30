@@ -54,21 +54,27 @@ int task_create(task_t* tasks __attribute__((unused)),
 			return -ESCHED;
 		}
 	}
+
+
 	if (task_is_created) {
-		// initialize devices and mutex
 		dev_init();
 		mutex_init();
 	} else {
 		task_is_created = 1;
 	}
+
+        // use ub test to check whether these tasks are scheduleble
+        if (assign_schedule(&tasks, num_tasks) == 0)
+            return -ESCHED;
+        
 	// allocate tasks
 	allocate_tasks(&tasks, num_tasks);
+
 	// schedule initialization
 	sched_init(NULL);
 
 	// should never go here
-	while (1)
-		;
+	while (1);
 
 	return 1;
 }

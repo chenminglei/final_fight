@@ -1,0 +1,20 @@
+/home/chenzhuokb2/Desktop/lab4/kernel/arm/timeSetup.o:  \
+ /home/chenzhuokb2/Desktop/lab4/kernel/arm/timeSetup.c \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/arm/reg.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/inline.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/types.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/arm/timer.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/arm/interrupt.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/constant.h
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/arm/reg.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/inline.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/arm/timer.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/arm/interrupt.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/constant.h:

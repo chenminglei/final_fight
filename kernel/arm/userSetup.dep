@@ -1,0 +1,8 @@
+/home/chenzhuokb2/Desktop/lab4/kernel/arm/userSetup.o:  \
+ /home/chenzhuokb2/Desktop/lab4/kernel/arm/userSetup.S \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/config.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/constant.h
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/config.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/constant.h:

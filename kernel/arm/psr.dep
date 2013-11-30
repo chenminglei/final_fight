@@ -1,0 +1,11 @@
+/home/chenzhuokb2/Desktop/lab4/kernel/arm/psr.o:  \
+ /home/chenzhuokb2/Desktop/lab4/kernel/arm/psr.c \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/types.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/arm/psr.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/inline.h
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/arm/psr.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/inline.h:

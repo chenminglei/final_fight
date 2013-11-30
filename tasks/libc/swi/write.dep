@@ -1,0 +1,8 @@
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/swi/write.o:  \
+ /home/chenzhuokb2/Desktop/lab4/tasks/libc/swi/write.S \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/asm.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/swi.h
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/asm.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/swi.h:

@@ -1,0 +1,8 @@
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/stdlib/ctype.o:  \
+ /home/chenzhuokb2/Desktop/lab4/tasks/libc/stdlib/ctype.c \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/ctype.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/inline.h
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/ctype.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/inline.h:

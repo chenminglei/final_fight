@@ -1,0 +1,20 @@
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/stdlib/strtoul.o:  \
+ /home/chenzhuokb2/Desktop/lab4/tasks/libc/stdlib/strtoul.c \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdlib.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/ctype.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/inline.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/string.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/sys/types.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/types.h
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdlib.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/ctype.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/inline.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/string.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/sys/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/types.h:

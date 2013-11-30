@@ -1,0 +1,14 @@
+/home/chenzhuokb2/Desktop/lab4/kernel/sched/ub_test.o:  \
+ /home/chenzhuokb2/Desktop/lab4/kernel/sched/ub_test.c \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/sched.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/task.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/types.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/config.h
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/sched.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/task.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/config.h:

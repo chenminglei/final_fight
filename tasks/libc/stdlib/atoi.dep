@@ -1,0 +1,11 @@
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/stdlib/atoi.o:  \
+ /home/chenzhuokb2/Desktop/lab4/tasks/libc/stdlib/atoi.c \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdlib.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/ctype.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/inline.h
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/stdlib.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/ctype.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/inline.h:

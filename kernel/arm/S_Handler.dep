@@ -1,0 +1,5 @@
+/home/chenzhuokb2/Desktop/lab4/kernel/arm/S_Handler.o:  \
+ /home/chenzhuokb2/Desktop/lab4/kernel/arm/S_Handler.S \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/constant.h
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/constant.h:

@@ -1,0 +1,11 @@
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/string/memcmp.o:  \
+ /home/chenzhuokb2/Desktop/lab4/tasks/libc/string/memcmp.c \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/string.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/sys/types.h \
+  /home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/types.h
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/string.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/sys/types.h:
+
+/home/chenzhuokb2/Desktop/lab4/tasks/libc/include/bits/types.h:

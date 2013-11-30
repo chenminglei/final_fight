@@ -1,0 +1,8 @@
+/home/chenzhuokb2/Desktop/lab4/kernel/ctype.o:  \
+ /home/chenzhuokb2/Desktop/lab4/kernel/ctype.c \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/ctype.h \
+  /home/chenzhuokb2/Desktop/lab4/kernel/include/inline.h
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/ctype.h:
+
+/home/chenzhuokb2/Desktop/lab4/kernel/include/inline.h:
