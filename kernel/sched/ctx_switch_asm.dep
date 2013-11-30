@@ -1,8 +1,0 @@
-/home/chenzhuokb2/Desktop/lab4/kernel/sched/ctx_switch_asm.o:  \
- /home/chenzhuokb2/Desktop/lab4/kernel/sched/ctx_switch_asm.S \
-  /home/chenzhuokb2/Desktop/lab4/kernel/include/asm.h \
-  /home/chenzhuokb2/Desktop/lab4/kernel/include/arm/psr.h
-
-/home/chenzhuokb2/Desktop/lab4/kernel/include/asm.h:
-
-/home/chenzhuokb2/Desktop/lab4/kernel/include/arm/psr.h:

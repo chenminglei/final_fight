@@ -1,8 +1,0 @@
-/home/chenzhuokb2/Desktop/lab4/kernel/math.o:  \
- /home/chenzhuokb2/Desktop/lab4/kernel/math.c \
-  /home/chenzhuokb2/Desktop/lab4/kernel/include/types.h \
-  /home/chenzhuokb2/Desktop/lab4/kernel/include/math.h
-
-/home/chenzhuokb2/Desktop/lab4/kernel/include/types.h:
-
-/home/chenzhuokb2/Desktop/lab4/kernel/include/math.h:

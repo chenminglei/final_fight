@@ -1,0 +1,59 @@
+Group Member:
+    Di Li<dil1@andrew.cmu.edu>
+    Minglei Chen<mingleic@andrew.cmu.edu>
+    Zhe Shen<zshen@andrew.cmu.edu>
+
+
+General Overview:
+    This project is based on lab3, which we have implemented a kernel with a custimized SWI handler, supporting the read, write and exit system call, and our customized IRQ handler, two more system calls which are time(), and sleep(). 
+
+
+kernel (main.c):
+    In the kernel main function, we installed the customized swi and irq handler. And then we initialized the interrupt controller and time driver, device and mutex. Then we setup the user program and start running the user program. Before jumping to the user program, we modified the crt0.S, to run the user function in a loop.
+
+SWI Handling (S_Handler.S C_SWI_HANDLER.c):
+    In the SWI handler, we hijack the original one and installed our new handler. And the difference of the S_Handler.S is that we stored the sp, lr of user mode and the spsr. This is because in S_handler task can be switched. And we need to save the sp and lr of user mode because these two can be corrupted when other tasks are ready and one task is sleeping.
+
+
+IRQ Handling (init_asm.S, irqHandler.c):
+    
+
+
+Interrupt Controller and Time driver (init_interrupt.c, timeSetup.c):
+
+
+Device(device.c):
+
+
+System Calls:
+
+    Time and Sleep (kernel/syscall/time.c):
+        We use two global variable to record the time. One is cur_time, record the time base. And the other is cur_bias, recording the bias time to eliminate the deviation caused by the IRQ interrupts. And the time resolution we used are 10ms, which means that we will invoke the IRQ every 10 ms. 
+        For the sleep system call, we use a while loop waiting for the time duration. We record the time when entering the sleep system call, and wait for the current time bigger than the time plus the sleep value.
+
+    Task create and event wait(kernel/syscall/proc.c):
+
+
+    
+    Mutex(kernel/lock/mutex.c):
+
+
+Schedule:
+    runqueue(runqueue.c):
+
+
+    context switch(ctx_switch.c, ctx_switch_asm.S):
+
+
+    schedule(sched.c):
+
+
+    ub test(ub_test.c):
+
+
+   
+
+
+
+
+

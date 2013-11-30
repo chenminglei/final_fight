@@ -1,8 +1,0 @@
-/home/chenzhuokb2/Desktop/lab4/kernel/arm/int_asm.o:  \
- /home/chenzhuokb2/Desktop/lab4/kernel/arm/int_asm.S \
-  /home/chenzhuokb2/Desktop/lab4/kernel/include/asm.h \
-  /home/chenzhuokb2/Desktop/lab4/kernel/include/arm/psr.h
-
-/home/chenzhuokb2/Desktop/lab4/kernel/include/asm.h:
-
-/home/chenzhuokb2/Desktop/lab4/kernel/include/arm/psr.h:
