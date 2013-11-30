@@ -63,6 +63,7 @@ int main(int argc, char** argv)
 	tasks[0].stack_pos = (void*)0xa2000000;
 	tasks[0].C = 1;
 	tasks[0].T = PERIOD_DEV0;
+	tasks[0].B = 1;
 
 	// this should fail and return EINVAL
 	ret = task_create(tasks, 65);

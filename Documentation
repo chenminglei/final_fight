@@ -16,13 +16,15 @@ SWI Handling (S_Handler.S C_SWI_HANDLER.c):
 
 
 IRQ Handling (init_asm.S, irqHandler.c):
-    
+    In the irq handler, we don't handle a specific stack. But we will use the stack of swi. And same with swi, we will save the sp , lr of user mode and the spsr. This is because in the irq there can be task switch.    
 
 
 Interrupt Controller and Time driver (init_interrupt.c, timeSetup.c):
+    Initialize the related memory mapper register. 
 
 
 Device(device.c):
+    In the device.c, we have a device init method. We need to initialize the sleep queue and the period for each device. And the device wait will be invoked by the event_wait system call. The current task will be added to the sleep queue of related device. The device update method will be called in timer interrupts to determine that the interrupt corresponds to the event frequency of a device. If the interrupt corresponded to the interrupt frequency of a device, this function will put all tasks in the sleep queue to run queue.
 
 
 System Calls:
@@ -32,28 +34,26 @@ System Calls:
         For the sleep system call, we use a while loop waiting for the time duration. We record the time when entering the sleep system call, and wait for the current time bigger than the time plus the sleep value.
 
     Task create and event wait(kernel/syscall/proc.c):
-
-
+        Task create function do the error checking then sort all the tasks and do the UB test. If tasks are valid to schedule then put them to the run queue. The last step is that initialize idle task and put it in the run queue and do the context switch.
+        Event wait function do the error checking and also make sure to consistent to the Highest Locker Priority (HLP) protocol. After this, the function call dev wait function to do the context switch.
     
     Mutex(kernel/lock/mutex.c):
+        The mutex is implemented using interupt disable and enable technic considering only one core in the cpu. 
 
 
 Schedule:
     runqueue(runqueue.c):
+        In the runqueue.c, we implement functions like initiate the runqueue, add flag to the runqueue, remove flag from the runqueue and get the current highest priority. For adding and removing runqueue, we use run_list and group_run_bits to identify the corresponding bit. For initiating runqueue, it is just to set these two structure to zero and null. For highest priority, we use prio_unmap_table to implement quick look-up.
 
 
     context switch(ctx_switch.c, ctx_switch_asm.S):
+        In this file, we implement dispatch_init to initialize the current TCB and priority to be idle. We implement context switch to highest priority while saving current task state in dispatch_save. In dispatch save, we add current task to runqueue and remove the task with highest priority and call ctx_switch_full to do context switch. In dispatch_nosave, the only difference is that we do not have to save the old state with calling ctx_switch_half. In dispatch sleep, we only remove the task with highest priority but not add the current one.
 
 
     schedule(sched.c):
+         In this file, we implement initiating the tasks in sched_init. We assign the idle tcb in this function. In allocate tasks, we accept tasks and its number. According to this parameters, we assign them to system_tcb structure and add each of them to the runqueue.
 
 
     ub test(ub_test.c):
-
-
-   
-
-
-
-
+        In this file, we sort the tasks in a rate-monotonically way. Then we calculate each task to see whether it meets the UB test standard. If not, return 0 directly. If all tasks meet the standard, we return 1.
 
